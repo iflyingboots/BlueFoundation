@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		223D0E211D47918E00CC6ACC /* BFPeripheralManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 223D0E1F1D47918E00CC6ACC /* BFPeripheralManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		223D0E221D47918E00CC6ACC /* BFPeripheralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 223D0E201D47918E00CC6ACC /* BFPeripheralManager.m */; };
 		2255B3D01D463FF900260510 /* BlueFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 2255B3CF1D463FF900260510 /* BlueFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2255B3D71D463FF900260510 /* BlueFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2255B3CC1D463FF900260510 /* BlueFoundation.framework */; };
 		2255B3DC1D463FF900260510 /* BlueFoundationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2255B3DB1D463FF900260510 /* BlueFoundationTests.m */; };
@@ -26,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		223D0E1F1D47918E00CC6ACC /* BFPeripheralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFPeripheralManager.h; sourceTree = "<group>"; };
+		223D0E201D47918E00CC6ACC /* BFPeripheralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFPeripheralManager.m; sourceTree = "<group>"; };
 		2255B3CC1D463FF900260510 /* BlueFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlueFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2255B3CF1D463FF900260510 /* BlueFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlueFoundation.h; sourceTree = "<group>"; };
 		2255B3D11D463FF900260510 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -80,6 +84,8 @@
 				2255B3D11D463FF900260510 /* Info.plist */,
 				2255B3E61D4640AA00260510 /* BFCentralManager.h */,
 				2255B3E71D4640AA00260510 /* BFCentralManager.m */,
+				223D0E1F1D47918E00CC6ACC /* BFPeripheralManager.h */,
+				223D0E201D47918E00CC6ACC /* BFPeripheralManager.m */,
 			);
 			path = BlueFoundation;
 			sourceTree = "<group>";
@@ -100,6 +106,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				223D0E211D47918E00CC6ACC /* BFPeripheralManager.h in Headers */,
 				2255B3E81D4640AA00260510 /* BFCentralManager.h in Headers */,
 				2255B3D01D463FF900260510 /* BlueFoundation.h in Headers */,
 			);
@@ -203,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2255B3E91D4640AA00260510 /* BFCentralManager.m in Sources */,
+				223D0E221D47918E00CC6ACC /* BFPeripheralManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

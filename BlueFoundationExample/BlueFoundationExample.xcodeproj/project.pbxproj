@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		223D0E1D1D478D5500CC6ACC /* BlueFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223D0E1C1D478D5500CC6ACC /* BlueFoundation.framework */; };
+		223D0E1E1D478D5500CC6ACC /* BlueFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 223D0E1C1D478D5500CC6ACC /* BlueFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2255B3F91D464F6B00260510 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2255B3F81D464F6B00260510 /* main.m */; };
 		2255B3FC1D464F6B00260510 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2255B3FB1D464F6B00260510 /* AppDelegate.m */; };
 		2255B3FF1D464F6B00260510 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2255B3FE1D464F6B00260510 /* ViewController.m */; };
@@ -14,8 +16,6 @@
 		2255B4041D464F6B00260510 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2255B4031D464F6B00260510 /* Assets.xcassets */; };
 		2255B4071D464F6B00260510 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2255B4051D464F6B00260510 /* LaunchScreen.storyboard */; };
 		2255B4121D464F6B00260510 /* BlueFoundationExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2255B4111D464F6B00260510 /* BlueFoundationExampleTests.m */; };
-		2255B4241D46513800260510 /* BlueFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2255B4231D46513800260510 /* BlueFoundation.framework */; };
-		2255B4251D46513800260510 /* BlueFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2255B4231D46513800260510 /* BlueFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +35,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2255B4251D46513800260510 /* BlueFoundation.framework in Embed Frameworks */,
+				223D0E1E1D478D5500CC6ACC /* BlueFoundation.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -43,6 +43,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		223D0E1C1D478D5500CC6ACC /* BlueFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = BlueFoundation.framework; path = "/Users/xin/Library/Developer/Xcode/DerivedData/BlueFoundation-giknhyccymeouccjksjagezwojex/Build/Products/Debug-iphoneos/BlueFoundation.framework"; sourceTree = "<absolute>"; };
 		2255B3F41D464F6B00260510 /* BlueFoundationExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueFoundationExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2255B3F81D464F6B00260510 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2255B3FA1D464F6B00260510 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -56,7 +57,6 @@
 		2255B40D1D464F6B00260510 /* BlueFoundationExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlueFoundationExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2255B4111D464F6B00260510 /* BlueFoundationExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlueFoundationExampleTests.m; sourceTree = "<group>"; };
 		2255B4131D464F6B00260510 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2255B4231D46513800260510 /* BlueFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = BlueFoundation.framework; path = "/Users/xin/Library/Developer/Xcode/DerivedData/BlueFoundation-gslqvagmdjaxvwcohtnltfdgtlzd/Build/Products/Debug-iphoneos/BlueFoundation.framework"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2255B4241D46513800260510 /* BlueFoundation.framework in Frameworks */,
+				223D0E1D1D478D5500CC6ACC /* BlueFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,7 +81,7 @@
 		2255B3EB1D464F6A00260510 = {
 			isa = PBXGroup;
 			children = (
-				2255B4231D46513800260510 /* BlueFoundation.framework */,
+				223D0E1C1D478D5500CC6ACC /* BlueFoundation.framework */,
 				2255B3F61D464F6B00260510 /* BlueFoundationExample */,
 				2255B4101D464F6B00260510 /* BlueFoundationExampleTests */,
 				2255B3F51D464F6B00260510 /* Products */,
@@ -424,6 +424,7 @@
 				2255B4181D464F6B00260510 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2255B4191D464F6B00260510 /* Build configuration list for PBXNativeTarget "BlueFoundationExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -432,6 +433,7 @@
 				2255B41B1D464F6B00260510 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

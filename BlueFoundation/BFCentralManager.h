@@ -8,10 +8,24 @@
 
 #import <Foundation/Foundation.h>
 
-@class CBPeripheral;
+@import CoreBluetooth;
+
+NS_ASSUME_NONNULL_BEGIN
+
+typedef void (^BFCentralManagerScanCompletionHandler)(CBPeripheral *peripheral, NSDictionary<NSString *,id> *advertisementData, NSNumber *RSSI, BOOL *connectNeeded, BOOL *stopScan);
+typedef void (^BFCentralManagerStateUpdateHandler)(CBCentralManager *centralManager, CBCentralManagerState state);
 
 @interface BFCentralManager : NSObject
 
-+ (instancetype)sharedManager;
++ (instancetype)manager;
+
+@property (nonatomic, strong, nullable) dispatch_queue_t completionQueue;
+
+- (void)scanForPeripheralsWithServices:(nullable NSArray<CBUUID *> *)serviceUUIDs options:(nullable NSDictionary<NSString *, id> *)options completion:(BFCentralManagerScanCompletionHandler)handler;
+
+
+- (void)stateUpdated:(BFCentralManagerStateUpdateHandler)handler;
 
 @end
+
+NS_ASSUME_NONNULL_END
