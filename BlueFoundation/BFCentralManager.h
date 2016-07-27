@@ -3,7 +3,7 @@
 //  BlueFoundation
 //
 //  Created by Xin Wang on 7/25/16.
-//  Copyright © 2016 Xin Wang. All rights reserved.
+//  Copyright © 2016 EtchingLab. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -23,6 +23,9 @@ typedef void (^BFCentralManagerStateUpdateHandler)(CBCentralManager *centralMana
 
 - (void)scanForPeripheralsWithServices:(nullable NSArray<CBUUID *> *)serviceUUIDs options:(nullable NSDictionary<NSString *, id> *)options completion:(BFCentralManagerScanCompletionHandler)handler;
 
+- (NSArray<CBPeripheral *> *)retrieveConnectedPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs;
+
+- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary<NSString *,id> *)options;
 
 - (void)stateUpdated:(BFCentralManagerStateUpdateHandler)handler;
 

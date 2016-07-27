@@ -3,7 +3,7 @@
 //  BlueFoundation
 //
 //  Created by Xin Wang on 7/25/16.
-//  Copyright © 2016 Xin Wang. All rights reserved.
+//  Copyright © 2016 EtchingLab. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -18,3 +18,4 @@ FOUNDATION_EXPORT const unsigned char BlueFoundationVersionString[];
 
 #import <BlueFoundation/BFCentralManager.h>
 #import <BlueFoundation/BFPeripheralManager.h>
+#import <BlueFoundation/NSString+BlueFoundation.h>

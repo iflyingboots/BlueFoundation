@@ -3,7 +3,7 @@
 //  BlueFoundation
 //
 //  Created by Xin Wang on 7/25/16.
-//  Copyright © 2016 Xin Wang. All rights reserved.
+//  Copyright © 2016 EtchingLab. All rights reserved.
 //
 
 #import "BFCentralManager.h"
@@ -14,7 +14,7 @@ static dispatch_queue_t central_manager_processing_queue()
     static dispatch_queue_t bf_central_manager_processing_queue;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        bf_central_manager_processing_queue = dispatch_queue_create("com.etchinglab.bluefoundation.centralmanager.processing", DISPATCH_QUEUE_SERIAL);
+        bf_central_manager_processing_queue = dispatch_queue_create("com.etchinglab.bluefoundation.processing", DISPATCH_QUEUE_SERIAL);
     });
     
     return bf_central_manager_processing_queue;
@@ -78,6 +78,11 @@ static dispatch_queue_t central_manager_processing_queue()
     self.stateUpdateHandler = handler;
 }
 
+- (NSArray<CBPeripheral *> *)retrieveConnectedPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs
+{
+    return [self.centralManager retrieveConnectedPeripheralsWithServices:serviceUUIDs];
+}
+
 #pragma mark - Central manager delegate
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
@@ -116,9 +121,19 @@ static dispatch_queue_t central_manager_processing_queue()
     }
 }
 
-- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
+- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary<NSString *,id> *)options
 {
     [self.peripheralManager addPeripheral:peripheral];
+    [self.centralManager connectPeripheral:peripheral options:options];
+}
+
+- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
+{
+}
+
+- (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
+{
+    
 }
 
 @end
