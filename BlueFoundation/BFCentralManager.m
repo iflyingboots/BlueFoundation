@@ -24,7 +24,7 @@ static dispatch_queue_t central_manager_processing_queue()
 @property (strong, nonatomic) CBCentralManager *centralManager;
 @property (strong, nonatomic) BFPeripheralManager *peripheralManager;
 @property (copy, nonatomic) BFCentralManagerScanCompletionHandler scanCompletionHandler;
-@property (copy, nonatomic) BFCentralManagerStateUpdateHandler stateUpdateHandler;
+@property (copy, nonatomic) BFCentralManagerStateDidUpdateHandler stateDidUpdateHandler;
 @end
 
 @implementation BFCentralManager
@@ -84,9 +84,9 @@ static dispatch_queue_t central_manager_processing_queue()
     [self.centralManager connectPeripheral:peripheral options:options];
 }
 
-- (void)stateUpdated:(BFCentralManagerStateUpdateHandler)handler
+- (void)stateUpdated:(BFCentralManagerStateDidUpdateHandler)handler
 {
-    self.stateUpdateHandler = handler;
+    self.stateDidUpdateHandler = handler;
 }
 
 #pragma mark - Central manager delegate
@@ -95,9 +95,9 @@ static dispatch_queue_t central_manager_processing_queue()
 {
     CBCentralManagerState centralState = central.state;
     
-    if (self.stateUpdateHandler) {
+    if (self.stateDidUpdateHandler) {
         dispatch_async(self.completionQueue ?: dispatch_get_main_queue(), ^{
-            self.stateUpdateHandler(central, centralState);
+            self.stateDidUpdateHandler(centralState);
         });
     }
 }
