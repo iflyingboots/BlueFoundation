@@ -10,6 +10,6 @@
 
 @interface NSString (BlueFoundation)
 
-- (nullable NSData *)dataFromHexString;
+- (nullable NSData *)bf_dataFromHexString;
 
 @end

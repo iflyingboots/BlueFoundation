@@ -10,7 +10,7 @@
 
 @implementation NSString (BlueFoundation)
 
-- (nullable NSData *)dataFromHexString
+- (nullable NSData *)bf_dataFromHexString
 {
     if (self.length % 2 != 0) return nil;
     
