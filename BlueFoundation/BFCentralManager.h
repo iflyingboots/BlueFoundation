@@ -17,13 +17,13 @@ typedef void (^BFCentralManagerStateUpdateHandler)(CBCentralManager *centralMana
 
 @interface BFCentralManager : NSObject
 
-+ (instancetype)manager;
++ (nullable instancetype)manager;
 
 @property (nonatomic, strong, nullable) dispatch_queue_t completionQueue;
 
 - (void)scanForPeripheralsWithServices:(nullable NSArray<CBUUID *> *)serviceUUIDs options:(nullable NSDictionary<NSString *, id> *)options completion:(BFCentralManagerScanCompletionHandler)handler;
 
-- (NSArray<CBPeripheral *> *)retrieveConnectedPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs;
+- (nullable NSArray<CBPeripheral *> *)retrieveConnectedPeripheralsWithServices:(nullable NSArray<CBUUID *> *)serviceUUIDs;
 
 - (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary<NSString *,id> *)options;
 

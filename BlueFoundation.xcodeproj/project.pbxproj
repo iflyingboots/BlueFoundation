@@ -17,6 +17,7 @@
 		2255B3E81D4640AA00260510 /* BFCentralManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2255B3E61D4640AA00260510 /* BFCentralManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2255B3E91D4640AA00260510 /* BFCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2255B3E71D4640AA00260510 /* BFCentralManager.m */; };
 		2255B3EA1D46455100260510 /* BFCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2255B3E71D4640AA00260510 /* BFCentralManager.m */; };
+		941B02A51D49C694004F6D2B /* BFUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 941B02A41D49C694004F6D2B /* BFUtilities.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		2255B3DD1D463FF900260510 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2255B3E61D4640AA00260510 /* BFCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFCentralManager.h; sourceTree = "<group>"; };
 		2255B3E71D4640AA00260510 /* BFCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFCentralManager.m; sourceTree = "<group>"; };
+		941B02A41D49C694004F6D2B /* BFUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFUtilities.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 				2255B3E71D4640AA00260510 /* BFCentralManager.m */,
 				223D0E1F1D47918E00CC6ACC /* BFPeripheralManager.h */,
 				223D0E201D47918E00CC6ACC /* BFPeripheralManager.m */,
+				941B02A41D49C694004F6D2B /* BFUtilities.h */,
 			);
 			path = BlueFoundation;
 			sourceTree = "<group>";
@@ -119,6 +122,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				941B02A51D49C694004F6D2B /* BFUtilities.h in Headers */,
 				223D0E211D47918E00CC6ACC /* BFPeripheralManager.h in Headers */,
 				2255B3E81D4640AA00260510 /* BFCentralManager.h in Headers */,
 				2255B3D01D463FF900260510 /* BlueFoundation.h in Headers */,

@@ -3,37 +3,12 @@
 //  BlueFoundation
 //
 //  Created by Xin Wang on 7/26/16.
-//  Copyright © 2016 Xin Wang. All rights reserved.
+//  Copyright © 2016 EtchingLab. All rights reserved.
 //
 
-@import CoreBluetooth;
-
 #import "BFPeripheralManager.h"
-
-@interface BFPeripheralDelegate : NSObject <CBPeripheralDelegate>
-@property (nonatomic, weak) BFPeripheralManager *manager;
-@end
-
-@implementation BFPeripheralDelegate
-
-#pragma mark - Peripheral delegate
-
-- (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
-{
-    
-}
-
-- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
-{
-    
-}
-
-- (void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error
-{
-    
-}
-
-@end
+#import "BFPeripheralDelegate.h"
+#import "BFUtilities.h"
 
 @interface BFPeripheralManager ()
 @property (nonatomic, strong) NSLock *lock;
@@ -42,7 +17,7 @@
 
 @implementation BFPeripheralManager
 
-- (instancetype)init
+- (nullable instancetype)init
 {
     self = [super init];
     if (!self) return nil;
@@ -53,7 +28,7 @@
     return self;
 }
 
-+ (instancetype)manager
++ (nullable instancetype)manager
 {
     static BFPeripheralManager *_sharedManager = nil;
     static dispatch_once_t onceToken;
@@ -66,10 +41,10 @@
 
 - (void)addPeripheral:(CBPeripheral *)peripheral
 {
-    [self.lock lock];
     BFPeripheralDelegate *delegate = [[BFPeripheralDelegate alloc] init];
     delegate.manager = self;
     peripheral.delegate = delegate;
+    [self.lock lock];
     self.mutableKeyedPeripheralDelegates[peripheral.identifier.UUIDString] = delegate;
     [self.lock unlock];
 }

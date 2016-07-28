@@ -39,7 +39,7 @@ static dispatch_queue_t central_manager_processing_queue()
     [[self class] manager];
 }
 
-+ (instancetype)manager
++ (nullable instancetype)manager
 {
     static BFCentralManager *_sharedManager = nil;
     static dispatch_once_t onceToken;
@@ -50,7 +50,7 @@ static dispatch_queue_t central_manager_processing_queue()
     return _sharedManager;
 }
 
-- (instancetype)init
+- (nullable instancetype)init
 {
     self = [super init];
     if (!self) return nil;
@@ -73,14 +73,20 @@ static dispatch_queue_t central_manager_processing_queue()
     [self.centralManager scanForPeripheralsWithServices:serviceUUIDs options:options];
 }
 
-- (void)stateUpdated:(BFCentralManagerStateUpdateHandler)handler
-{
-    self.stateUpdateHandler = handler;
-}
-
 - (NSArray<CBPeripheral *> *)retrieveConnectedPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs
 {
     return [self.centralManager retrieveConnectedPeripheralsWithServices:serviceUUIDs];
+}
+
+- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary<NSString *,id> *)options
+{
+    [self.peripheralManager addPeripheral:peripheral];
+    [self.centralManager connectPeripheral:peripheral options:options];
+}
+
+- (void)stateUpdated:(BFCentralManagerStateUpdateHandler)handler
+{
+    self.stateUpdateHandler = handler;
 }
 
 #pragma mark - Central manager delegate
@@ -114,21 +120,14 @@ static dispatch_queue_t central_manager_processing_queue()
                     [self.centralManager connectPeripheral:peripheral options:nil];
                     _didDiscoverPeripheralConnectNeededFlag = NO;
                 }
-                
-            
             });
         });
     }
 }
 
-- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary<NSString *,id> *)options
-{
-    [self.peripheralManager addPeripheral:peripheral];
-    [self.centralManager connectPeripheral:peripheral options:options];
-}
-
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
+    
 }
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
