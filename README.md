@@ -10,5 +10,5 @@ Working with Bluetooth devices should be just like what you do when you send net
 
 # How To Get Started
 
-This project is working on progress. Please stay tuned, keep an eye on `develop` branch, and calm down.
+This project is working in progress. Please stay tuned, keep an eye on `develop` branch, and calm down.
 
