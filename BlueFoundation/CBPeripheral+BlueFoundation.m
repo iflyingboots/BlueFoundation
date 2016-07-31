@@ -11,6 +11,7 @@
 
 @implementation CBPeripheral (BlueFoundation)
 @dynamic bf_characteristics;
+@dynamic bf_completionQueue;
 
 #pragma mark - Dynamic property
 
@@ -21,6 +22,23 @@
         return [bfPeripheralDelegate.mutableCharacteristics copy];
     }
     return nil;
+}
+
+- (nullable dispatch_queue_t)bf_completionQueue
+{
+    BFPeripheralDelegate *bfPeripheralDelegate = [self getBlueFoundationPeripheralDelegate];
+    if (bfPeripheralDelegate) {
+        return bfPeripheralDelegate.completionQueue;
+    }
+    return nil;
+}
+
+- (void)setBf_completionQueue:(dispatch_queue_t)bf_completionQueue
+{
+    BFPeripheralDelegate *bfPeripheralDelegate = [self getBlueFoundationPeripheralDelegate];
+    if (bfPeripheralDelegate) {
+        bfPeripheralDelegate.completionQueue = bf_completionQueue;
+    }
 }
 
 #pragma mark -

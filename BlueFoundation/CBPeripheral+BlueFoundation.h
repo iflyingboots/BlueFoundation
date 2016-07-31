@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CBPeripheral (BlueFoundation)
 
 @property (nonatomic, strong, readonly, nullable) NSDictionary<NSString *, CBCharacteristic *> *bf_characteristics;
+@property (nonatomic, strong, nullable) dispatch_queue_t bf_completionQueue;
 
 - (void)bf_discoverServices:(nullable NSArray<CBUUID *> *)serviceUUIDs andCharacteristicsWithCompletion:(BFPeripheralDelegateDidDiscoverServicesAndCharacteristicsHandler)handler;
 

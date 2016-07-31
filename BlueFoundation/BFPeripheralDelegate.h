@@ -40,6 +40,7 @@ typedef void (^BFPeripheralDelegateReadHandler)(NSData * _Nullable response, NSE
 @property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, CBCharacteristic *> *mutableCharacteristics;
 
 @property (nonatomic, assign) BFPeripheralDelegateState state;
+@property (nonatomic, strong, nullable) dispatch_queue_t completionQueue;
 
 // callbacks
 @property (nonatomic, copy, nullable) BFPeripheralDelegateDidDiscoverServicesAndCharacteristicsHandler didDiscoverServicesAndCharacteriscitcsHandler;

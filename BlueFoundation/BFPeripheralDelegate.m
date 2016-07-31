@@ -24,6 +24,7 @@
     self.mutableCharacteristics = [[NSMutableDictionary alloc] init];
     self.mutableServices = [[NSMutableDictionary alloc] init];
     self.state = BFPeripheralDelegateStateIdle;
+    self.completionQueue = dispatch_get_main_queue();
     
     return self;
 }
@@ -80,8 +81,10 @@
             if (previousState < BFPeripheralDelegateStateDiscoveringServices
                 || self.mutableServices.count == 0
                 ) {
-                executeBlockIfExistsThenSetNil(self.didDiscoverServicesAndCharacteriscitcsHandler,
-                                               [BFError errorWithCode:BFErrorCodePeripheralNoServiceDiscovered]);
+                dispatch_async(self.completionQueue, ^{
+                    executeBlockIfExistsThenSetNil(self.didDiscoverServicesAndCharacteriscitcsHandler,
+                                                   [BFError errorWithCode:BFErrorCodePeripheralNoServiceDiscovered]);
+                });
                 break;
             }
             _state = state;
@@ -101,8 +104,10 @@
         case BFPeripheralDelegateStateWriteWithNotify: {
             // executing other operations?
             if ([self checkIsExecuting]) {
-                executeBlockIfExistsThenSetNil(self.writeWithNotifyHandler,
-                                               nil, [BFError errorWithCode:BFErrorCodePeripheralBusy]);
+                dispatch_async(self.completionQueue, ^{
+                    executeBlockIfExistsThenSetNil(self.writeWithNotifyHandler,
+                                                   nil, [BFError errorWithCode:BFErrorCodePeripheralBusy]);
+                });
                 break;
             }
             _state = state;
@@ -111,8 +116,10 @@
         case BFPeripheralDelegateStateWriteWithoutNotify: {
             // executing other operations?
             if ([self checkIsExecuting]) {
-                executeBlockIfExistsThenSetNil(self.writeWithoutNotifyHandler,
-                                               [BFError errorWithCode:BFErrorCodePeripheralBusy]);
+                dispatch_async(self.completionQueue, ^{
+                    executeBlockIfExistsThenSetNil(self.writeWithoutNotifyHandler,
+                                                   [BFError errorWithCode:BFErrorCodePeripheralBusy]);
+                });
                 break;
             }
             _state = state;
@@ -121,8 +128,10 @@
         case BFPeripheralDelegateStateWriteThenRead: {
             // executing other operations?
             if ([self checkIsExecuting]) {
-                executeBlockIfExistsThenSetNil(self.writeThenReadHandler,
-                                               nil, [BFError errorWithCode:BFErrorCodePeripheralBusy]);
+                dispatch_async(self.completionQueue, ^{
+                    executeBlockIfExistsThenSetNil(self.writeThenReadHandler,
+                                                   nil, [BFError errorWithCode:BFErrorCodePeripheralBusy]);
+                });
                 break;
             }
             _state = state;
@@ -131,8 +140,10 @@
         case BFPeripheralDelegateStateRead: {
             // executing other operations?
             if ([self checkIsExecuting]) {
-                executeBlockIfExistsThenSetNil(self.readHandler,
-                                               nil, [BFError errorWithCode:BFErrorCodePeripheralBusy]);
+                dispatch_async(self.completionQueue, ^{
+                    executeBlockIfExistsThenSetNil(self.readHandler,
+                                                   nil, [BFError errorWithCode:BFErrorCodePeripheralBusy]);
+                });
                 break;
             }
             _state = state;
@@ -167,10 +178,14 @@
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
     if (self.state == BFPeripheralDelegateStateWriteWithoutNotify) {
-        executeBlockIfExistsThenSetNil(self.writeWithoutNotifyHandler, error);
+        dispatch_async(self.completionQueue, ^{
+            executeBlockIfExistsThenSetNil(self.writeWithoutNotifyHandler, error);
+        });
         self.state = BFPeripheralDelegateStateReady;
     } else if (self.state == BFPeripheralDelegateStateWriteWithNotify) {
-        executeBlockIfExistsThenSetNil(self.writeWithNotifyHandler, characteristic.value, error);
+        dispatch_async(self.completionQueue, ^{
+            executeBlockIfExistsThenSetNil(self.writeWithNotifyHandler, characteristic.value, error);
+        });
         self.state = BFPeripheralDelegateStateReady;
     }
 }
@@ -179,10 +194,14 @@
              error:(NSError *)error
 {
     if (self.state == BFPeripheralDelegateStateRead) {
-        executeBlockIfExistsThenSetNil(self.readHandler, characteristic.value, error);
+        dispatch_async(self.completionQueue, ^{
+            executeBlockIfExistsThenSetNil(self.readHandler, characteristic.value, error);
+        });
         self.state = BFPeripheralDelegateStateReady;
     } else if (self.state == BFPeripheralDelegateStateWriteWithNotify) {
-        executeBlockIfExistsThenSetNil(self.writeWithNotifyHandler, characteristic.value, error);
+        dispatch_async(self.completionQueue, ^{
+            executeBlockIfExistsThenSetNil(self.writeWithNotifyHandler, characteristic.value, error);
+        });
         self.state = BFPeripheralDelegateStateReady;
     }
 }
@@ -191,7 +210,9 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error
 {
-    executeBlockIfExistsThenSetNil(self.readRSSIHandler, RSSI, error);
+    dispatch_async(self.completionQueue, ^{
+        executeBlockIfExistsThenSetNil(self.readRSSIHandler, RSSI, error);
+    });
 }
 
 #pragma mark Services
@@ -245,7 +266,9 @@
     
     if (finishDiscoveringAllServices) {
         self.state = BFPeripheralDelegateStateReady;
-        executeBlockIfExistsThenSetNil(self.didDiscoverServicesAndCharacteriscitcsHandler, error);
+        dispatch_async(self.completionQueue, ^{
+            executeBlockIfExistsThenSetNil(self.didDiscoverServicesAndCharacteriscitcsHandler, error);
+        });
     }
 }
 
