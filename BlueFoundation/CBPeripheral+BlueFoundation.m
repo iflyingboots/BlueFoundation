@@ -124,7 +124,7 @@
     [self discoverServices:serviceUUIDs];
 }
 
-- (void)bf_readRSSIWithHandler:(BFPeripheralDelegateReadRSSIHandler)handler
+- (void)bf_readRSSIWithCompletion:(BFPeripheralDelegateReadRSSIHandler)handler
 {
     BFPeripheralDelegate *bfPeripheralDelegate = [self getBlueFoundationPeripheralDelegate];
     NSAssert(bfPeripheralDelegate, @"The delegate of this peripheral is not managed by BlueFoundation.");

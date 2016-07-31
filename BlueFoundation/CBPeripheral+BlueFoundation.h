@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)bf_discoverServices:(nullable NSArray<CBUUID *> *)serviceUUIDs andCharacteristicsWithCompletion:(BFPeripheralDelegateDidDiscoverServicesAndCharacteristicsHandler)handler;
 
-- (void)bf_readRSSIWithHandler:(BFPeripheralDelegateReadRSSIHandler)handler;
+- (void)bf_readRSSIWithCompletion:(BFPeripheralDelegateReadRSSIHandler)handler;
 
 - (void)bf_writeValue:(NSData *)data forCharacteristicUUIDString:(NSString *)characteristicUUIDString withNotify:(BFPeripheralDelegateWriteWithNotifyHandler)handler;
 

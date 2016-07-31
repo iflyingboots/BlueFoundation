@@ -49,7 +49,7 @@ static NSString * const kDISUUID = @"0000180a-0000-1000-8000-00805f9b34fb";
         }];
     }];
     
-    [self.peripheral bf_readRSSIWithHandler:^(NSNumber *RSSI, NSError *error) {
+    [self.peripheral bf_readRSSIWithCompletion:^(NSNumber *RSSI, NSError *error) {
         NSLog(@"RSSI: %@", RSSI);
     }];
 }
