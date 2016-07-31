@@ -18,27 +18,25 @@
 - (nullable NSDictionary<NSString *,CBCharacteristic *> *)bf_characteristics
 {
     BFPeripheralDelegate *bfPeripheralDelegate = [self getBlueFoundationPeripheralDelegate];
-    if (bfPeripheralDelegate) {
-        return [bfPeripheralDelegate.mutableCharacteristics copy];
-    }
-    return nil;
+    NSAssert(bfPeripheralDelegate, @"The delegate of this peripheral is not managed by BlueFoundation.");
+
+    return [bfPeripheralDelegate.mutableCharacteristics copy];
 }
 
 - (nullable dispatch_queue_t)bf_completionQueue
 {
     BFPeripheralDelegate *bfPeripheralDelegate = [self getBlueFoundationPeripheralDelegate];
-    if (bfPeripheralDelegate) {
-        return bfPeripheralDelegate.completionQueue;
-    }
-    return nil;
+    NSAssert(bfPeripheralDelegate, @"The delegate of this peripheral is not managed by BlueFoundation.");
+
+    return bfPeripheralDelegate.completionQueue;
 }
 
 - (void)setBf_completionQueue:(dispatch_queue_t)bf_completionQueue
 {
     BFPeripheralDelegate *bfPeripheralDelegate = [self getBlueFoundationPeripheralDelegate];
-    if (bfPeripheralDelegate) {
-        bfPeripheralDelegate.completionQueue = bf_completionQueue;
-    }
+    NSAssert(bfPeripheralDelegate, @"The delegate of this peripheral is not managed by BlueFoundation.");
+    
+    bfPeripheralDelegate.completionQueue = bf_completionQueue;
 }
 
 #pragma mark -
@@ -46,73 +44,67 @@
 - (void)bf_writeValue:(NSData *)data forCharacteristicUUIDString:(NSString *)characteristicUUIDString withNotify:(BFPeripheralDelegateWriteWithNotifyHandler)handler;
 {
     BFPeripheralDelegate *bfPeripheralDelegate = [self getBlueFoundationPeripheralDelegate];
-    if (bfPeripheralDelegate) {
-        bfPeripheralDelegate.writeWithNotifyHandler = handler;
-        CBCharacteristic *characteristic = bfPeripheralDelegate.mutableCharacteristics[characteristicUUIDString.uppercaseString];
-        if (characteristic) {
-            if (characteristic.properties & CBCharacteristicPropertyWriteWithoutResponse) {
-                [self writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
-            } else {
-                [self writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
-            }
+    NSAssert(bfPeripheralDelegate, @"The delegate of this peripheral is not managed by BlueFoundation.");
+
+    bfPeripheralDelegate.writeWithNotifyHandler = handler;
+    CBCharacteristic *characteristic = bfPeripheralDelegate.mutableCharacteristics[characteristicUUIDString.uppercaseString];
+    if (characteristic) {
+        if (characteristic.properties & CBCharacteristicPropertyWriteWithoutResponse) {
+            [self writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
         } else {
-            bfPeripheralDelegate.writeWithNotifyHandler(nil, [BFError errorWithCode:BFErrorCodePeripheralNoSuchCharacteristic]);
+            [self writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
         }
     } else {
-        // TODO: non-BlueFoundation delegate
+        bfPeripheralDelegate.writeWithNotifyHandler(nil, [BFError errorWithCode:BFErrorCodePeripheralNoSuchCharacteristic]);
     }
 }
 
 - (void)bf_writeValue:(NSData *)data forCharacteristicUUIDString:(NSString *)characteristicUUIDString withoutNotify:(BFPeripheralDelegateWriteWithoutNotifyHandler)handler
 {
     BFPeripheralDelegate *bfPeripheralDelegate = [self getBlueFoundationPeripheralDelegate];
-    if (bfPeripheralDelegate) {
-        bfPeripheralDelegate.writeWithoutNotifyHandler = handler;
-        CBCharacteristic *characteristic = bfPeripheralDelegate.mutableCharacteristics[characteristicUUIDString.uppercaseString];
-        if (characteristic) {
-            if (characteristic.properties & CBCharacteristicPropertyWriteWithoutResponse) {
-                [self writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
-            } else {
-                [self writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
-            }
+    NSAssert(bfPeripheralDelegate, @"The delegate of this peripheral is not managed by BlueFoundation.");
+
+    bfPeripheralDelegate.writeWithoutNotifyHandler = handler;
+    CBCharacteristic *characteristic = bfPeripheralDelegate.mutableCharacteristics[characteristicUUIDString.uppercaseString];
+    if (characteristic) {
+        if (characteristic.properties & CBCharacteristicPropertyWriteWithoutResponse) {
+            [self writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
         } else {
-            bfPeripheralDelegate.writeWithoutNotifyHandler([BFError errorWithCode:BFErrorCodePeripheralNoSuchCharacteristic]);
+            [self writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
         }
     } else {
-        // TODO: non-BlueFoundation delegate
+        bfPeripheralDelegate.writeWithoutNotifyHandler([BFError errorWithCode:BFErrorCodePeripheralNoSuchCharacteristic]);
     }
 }
 
 - (void)bf_writeValue:(NSData *)data forCharacteristicUUIDString:(NSString *)writeCharacteristicUUIDString thenReadCharacteristicUUIDString:(NSString *)readCharacteristicUUIDString completion:(BFPeripheralDelegateWriteThenReadHandler)handler
 {
     BFPeripheralDelegate *bfPeripheralDelegate = [self getBlueFoundationPeripheralDelegate];
-    if (bfPeripheralDelegate) {
-        bfPeripheralDelegate.writeThenReadHandler = handler;
-        CBCharacteristic *writeCharacteristic = bfPeripheralDelegate.mutableCharacteristics[writeCharacteristicUUIDString.uppercaseString];
-        if (writeCharacteristic) {
-            if (writeCharacteristic.properties & CBCharacteristicPropertyWriteWithoutResponse) {
-                [self writeValue:data forCharacteristic:writeCharacteristic type:CBCharacteristicWriteWithoutResponse];
-            } else {
-                [self writeValue:data forCharacteristic:writeCharacteristic type:CBCharacteristicWriteWithResponse];
-            }
+    NSAssert(bfPeripheralDelegate, @"The delegate of this peripheral is not managed by BlueFoundation.");
+    
+    bfPeripheralDelegate.writeThenReadHandler = handler;
+    CBCharacteristic *writeCharacteristic = bfPeripheralDelegate.mutableCharacteristics[writeCharacteristicUUIDString.uppercaseString];
+    if (writeCharacteristic) {
+        if (writeCharacteristic.properties & CBCharacteristicPropertyWriteWithoutResponse) {
+            [self writeValue:data forCharacteristic:writeCharacteristic type:CBCharacteristicWriteWithoutResponse];
         } else {
-            bfPeripheralDelegate.writeThenReadHandler(nil, [BFError errorWithCode:BFErrorCodePeripheralNoSuchCharacteristic]);
+            [self writeValue:data forCharacteristic:writeCharacteristic type:CBCharacteristicWriteWithResponse];
         }
-        // TODO: then read
     } else {
-        // TODO: non-BlueFoundation delegate
+        bfPeripheralDelegate.writeThenReadHandler(nil, [BFError errorWithCode:BFErrorCodePeripheralNoSuchCharacteristic]);
     }
+    // TODO: then read
 }
 
 - (void)bf_readValueForCharacteristicUUIDString:(NSString *)characteristicUUIDString completion:(BFPeripheralDelegateReadHandler)completion
 {
     BFPeripheralDelegate *bfPeripheralDelegate = [self getBlueFoundationPeripheralDelegate];
-    if (bfPeripheralDelegate) {
-        bfPeripheralDelegate.readHandler = completion;
-        CBCharacteristic *charcteristic = bfPeripheralDelegate.mutableCharacteristics[characteristicUUIDString];
-        if (charcteristic) {
-            [self readValueForCharacteristic:charcteristic];
-        }
+    NSAssert(bfPeripheralDelegate, @"The delegate of this peripheral is not managed by BlueFoundation.");
+
+    bfPeripheralDelegate.readHandler = completion;
+    CBCharacteristic *charcteristic = bfPeripheralDelegate.mutableCharacteristics[characteristicUUIDString];
+    if (charcteristic) {
+        [self readValueForCharacteristic:charcteristic];
     }
 }
 
@@ -124,11 +116,10 @@
         return;
     }
     BFPeripheralDelegate *bfPeripheralDelegate = [self getBlueFoundationPeripheralDelegate];
-    if (bfPeripheralDelegate) {
-        // TODO: error handling
-        bfPeripheralDelegate.state = BFPeripheralDelegateStateDiscoveringServices;
-        bfPeripheralDelegate.didDiscoverServicesAndCharacteriscitcsHandler = handler;
-    }
+    NSAssert(bfPeripheralDelegate, @"The delegate of this peripheral is not managed by BlueFoundation.");
+
+    bfPeripheralDelegate.state = BFPeripheralDelegateStateDiscoveringServices;
+    bfPeripheralDelegate.didDiscoverServicesAndCharacteriscitcsHandler = handler;
     
     [self discoverServices:serviceUUIDs];
 }
@@ -136,9 +127,9 @@
 - (void)bf_readRSSIWithHandler:(BFPeripheralDelegateReadRSSIHandler)handler
 {
     BFPeripheralDelegate *bfPeripheralDelegate = [self getBlueFoundationPeripheralDelegate];
-    if (bfPeripheralDelegate) {
-        bfPeripheralDelegate.readRSSIHandler = handler;
-    }
+    NSAssert(bfPeripheralDelegate, @"The delegate of this peripheral is not managed by BlueFoundation.");
+
+    bfPeripheralDelegate.readRSSIHandler = handler;
     
     [self readRSSI];
 }

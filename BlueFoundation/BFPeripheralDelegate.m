@@ -70,7 +70,6 @@
         case BFPeripheralDelegateStateDiscoveringServices: {
             // check connection
             if (previousState < BFPeripheralDelegateStateConnected) {
-                // TODO: ???
                 break;
             }
             _state = state;
@@ -219,7 +218,13 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
 {
-    // TODO: error handling
+    if (error) {
+        dispatch_async(self.completionQueue, ^{
+            executeBlockIfExistsThenSetNil(self.didDiscoverServicesAndCharacteriscitcsHandler, error);
+        });
+        return;
+    }
+    
     for (CBService *service in peripheral.services) {
         // converts UUID string to uppercase
         self.mutableServices[service.UUID.UUIDString.uppercaseString] = [[NSMutableArray alloc] init];
@@ -244,6 +249,13 @@
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service
              error:(NSError *)error
 {
+    if (error) {
+        dispatch_async(self.completionQueue, ^{
+            executeBlockIfExistsThenSetNil(self.didDiscoverServicesAndCharacteriscitcsHandler, error);
+        });
+        return;
+    }
+    
     // convert UUID string to uppercase
     NSString *serviceUUIDString = service.UUID.UUIDString.uppercaseString;
     for (CBCharacteristic *charasteristic in service.characteristics) {
