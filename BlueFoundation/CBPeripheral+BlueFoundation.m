@@ -8,6 +8,7 @@
 
 #import "CBPeripheral+BlueFoundation.h"
 #import "BFError.h"
+#import "BFUtilities.h"
 
 @implementation CBPeripheral (BlueFoundation)
 @dynamic bf_characteristics;
@@ -49,13 +50,13 @@
     bfPeripheralDelegate.writeWithNotifyHandler = handler;
     CBCharacteristic *characteristic = bfPeripheralDelegate.mutableCharacteristics[characteristicUUIDString.uppercaseString];
     if (characteristic) {
-        if (characteristic.properties & CBCharacteristicPropertyWriteWithoutResponse) {
-            [self writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
-        } else {
-            [self writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
-        }
+        CBCharacteristicWriteType writeType = [self getCharacteristicWriteType:characteristic];
+        [self writeValue:data forCharacteristic:characteristic type:writeType];
     } else {
-        bfPeripheralDelegate.writeWithNotifyHandler(nil, [BFError errorWithCode:BFErrorCodePeripheralNoSuchCharacteristic]);
+        dispatch_async(self.bf_completionQueue, ^{
+            executeBlockIfExistsThenSetNil(bfPeripheralDelegate.writeWithNotifyHandler,
+                                           nil, [BFError errorWithCode:BFErrorCodePeripheralNoSuchCharacteristic]);
+        });
     }
 }
 
@@ -67,13 +68,13 @@
     bfPeripheralDelegate.writeWithoutNotifyHandler = handler;
     CBCharacteristic *characteristic = bfPeripheralDelegate.mutableCharacteristics[characteristicUUIDString.uppercaseString];
     if (characteristic) {
-        if (characteristic.properties & CBCharacteristicPropertyWriteWithoutResponse) {
-            [self writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
-        } else {
-            [self writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
-        }
+        CBCharacteristicWriteType writeType = [self getCharacteristicWriteType:characteristic];
+        [self writeValue:data forCharacteristic:characteristic type:writeType];
     } else {
-        bfPeripheralDelegate.writeWithoutNotifyHandler([BFError errorWithCode:BFErrorCodePeripheralNoSuchCharacteristic]);
+        dispatch_async(self.bf_completionQueue, ^{
+            executeBlockIfExistsThenSetNil(bfPeripheralDelegate.writeWithoutNotifyHandler,
+                                           [BFError errorWithCode:BFErrorCodePeripheralNoSuchCharacteristic]);
+        });
     }
 }
 
@@ -85,15 +86,15 @@
     bfPeripheralDelegate.writeThenReadHandler = handler;
     CBCharacteristic *writeCharacteristic = bfPeripheralDelegate.mutableCharacteristics[writeCharacteristicUUIDString.uppercaseString];
     if (writeCharacteristic) {
-        if (writeCharacteristic.properties & CBCharacteristicPropertyWriteWithoutResponse) {
-            [self writeValue:data forCharacteristic:writeCharacteristic type:CBCharacteristicWriteWithoutResponse];
-        } else {
-            [self writeValue:data forCharacteristic:writeCharacteristic type:CBCharacteristicWriteWithResponse];
-        }
+        CBCharacteristicWriteType writeType = [self getCharacteristicWriteType:writeCharacteristic];
+        bfPeripheralDelegate.state = BFPeripheralDelegateStateWriteThenReadInWriting;
+        [self writeValue:data forCharacteristic:writeCharacteristic type:writeType];
     } else {
-        bfPeripheralDelegate.writeThenReadHandler(nil, [BFError errorWithCode:BFErrorCodePeripheralNoSuchCharacteristic]);
+        dispatch_async(self.bf_completionQueue, ^{
+            executeBlockIfExistsThenSetNil(bfPeripheralDelegate.writeThenReadHandler,
+                                           nil, [BFError errorWithCode:BFErrorCodePeripheralNoSuchCharacteristic]);
+        });
     }
-    // TODO: then read
 }
 
 - (void)bf_readValueForCharacteristicUUIDString:(NSString *)characteristicUUIDString completion:(BFPeripheralDelegateReadHandler)completion
@@ -105,6 +106,11 @@
     CBCharacteristic *charcteristic = bfPeripheralDelegate.mutableCharacteristics[characteristicUUIDString];
     if (charcteristic) {
         [self readValueForCharacteristic:charcteristic];
+    } else {
+        dispatch_async(self.bf_completionQueue, ^{
+            executeBlockIfExistsThenSetNil(bfPeripheralDelegate.readHandler,
+                                           nil, [BFError errorWithCode:BFErrorCodePeripheralNoSuchCharacteristic]);
+        });
     }
 }
 
@@ -112,7 +118,9 @@
 - (void)bf_discoverServices:(nullable NSArray<CBUUID *> *)serviceUUIDs andCharacteristicsWithCompletion:(BFPeripheralDelegateDidDiscoverServicesAndCharacteristicsHandler)handler;
 {
     if (self.state != CBPeripheralStateConnected) {
-        handler([BFError errorWithCode:BFErrorCodePeripheralDisconnected]);
+        dispatch_async(self.bf_completionQueue, ^{
+            handler([BFError errorWithCode:BFErrorCodePeripheralDisconnected]);
+        });
         return;
     }
     BFPeripheralDelegate *bfPeripheralDelegate = [self getBlueFoundationPeripheralDelegate];
@@ -145,6 +153,15 @@
     }
     
     return nil;
+}
+
+- (CBCharacteristicWriteType)getCharacteristicWriteType:(nonnull CBCharacteristic *)characteristic
+{
+    if (characteristic.properties & CBCharacteristicPropertyWriteWithoutResponse) {
+        return CBCharacteristicWriteWithoutResponse;
+    } else {
+        return CBCharacteristicWriteWithResponse;
+    }
 }
 
 @end

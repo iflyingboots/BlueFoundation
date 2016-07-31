@@ -21,6 +21,8 @@ typedef NS_ENUM(uint8_t, BFPeripheralDelegateState) {
     BFPeripheralDelegateStateWriteWithNotify,
     BFPeripheralDelegateStateWriteWithoutNotify,
     BFPeripheralDelegateStateWriteThenRead,
+    BFPeripheralDelegateStateWriteThenReadInWriting,     // sub state of WriteThenRead
+    BFPeripheralDelegateStateWriteThenReadInReading,     // sub state of WriteThenRead
     BFPeripheralDelegateStateRead,
 };
 

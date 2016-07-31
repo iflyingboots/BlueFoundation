@@ -136,6 +136,22 @@
             _state = state;
             break;
         }
+        case BFPeripheralDelegateStateWriteThenReadInWriting: {
+            if (previousState != BFPeripheralDelegateStateWriteThenRead) {
+                BFLog(@"Invalid state transition for WriteAndReadInWriting");
+                break;
+            }
+            _state = state;
+            break;
+        }
+        case BFPeripheralDelegateStateWriteThenReadInReading: {
+            if (previousState != BFPeripheralDelegateStateWriteThenReadInWriting) {
+                BFLog(@"Invalid state transition for WriteAndReadInReading");
+                break;
+            }
+            _state = state;
+            break;
+        }
         case BFPeripheralDelegateStateRead: {
             // executing other operations?
             if ([self checkIsExecuting]) {
@@ -165,6 +181,8 @@
         case BFPeripheralDelegateStateWriteWithNotify:
         case BFPeripheralDelegateStateWriteWithoutNotify:
         case BFPeripheralDelegateStateWriteThenRead:
+        case BFPeripheralDelegateStateWriteThenReadInWriting:
+        case BFPeripheralDelegateStateWriteThenReadInReading:
         case BFPeripheralDelegateStateRead:
             return YES;
     }
@@ -186,6 +204,10 @@
             executeBlockIfExistsThenSetNil(self.writeWithNotifyHandler, characteristic.value, error);
         });
         self.state = BFPeripheralDelegateStateReady;
+    } else if (self.state == BFPeripheralDelegateStateWriteThenReadInWriting) {
+        self.state = BFPeripheralDelegateStateWriteThenReadInReading;
+    } else {
+        NSAssert(nil, @"didWriteValueForCharacteristic: Illegal state: %@", @(self.state));
     }
 }
 
@@ -202,6 +224,13 @@
             executeBlockIfExistsThenSetNil(self.writeWithNotifyHandler, characteristic.value, error);
         });
         self.state = BFPeripheralDelegateStateReady;
+    } else if (self.state == BFPeripheralDelegateStateWriteThenReadInReading) {
+        dispatch_async(self.completionQueue, ^{
+            executeBlockIfExistsThenSetNil(self.writeThenReadHandler, characteristic.value, error);
+        });
+        self.state = BFPeripheralDelegateStateReady;
+    } else {
+        NSAssert(nil, @"didUpdateValueForCharacteristic: Illegal state: %@", @(self.state));
     }
 }
 
