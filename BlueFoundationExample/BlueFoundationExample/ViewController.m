@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import <BlueFoundation/BlueFoundation.h>
 
+static NSString * const kDISUUID = @"0000180a-0000-1000-8000-00805f9b34fb";
+
 @interface ViewController ()
 @property (nonatomic, copy) CBPeripheral *peripheral;
 @end
@@ -21,14 +23,34 @@
     
     BFCentralManager *centralManager = [BFCentralManager manager];
     
-    [centralManager scanForPeripheralsWithServices:@[]
-                                           options:nil
-                                        completion:^(CBPeripheral * _Nonnull peripheral, NSDictionary<NSString *,id> * _Nonnull advertisementData, NSNumber * _Nonnull RSSI, BOOL * _Nonnull connect, BOOL * _Nonnull stop) {
-        
+    NSArray *connectedDevices = [centralManager
+                                 retrieveConnectedPeripheralsWithServices:@[[CBUUID UUIDWithString:kDISUUID]]];
+    
+    NSLog(@"%@", connectedDevices);
+    
+    if (connectedDevices.count > 0)
+    {
+        self.peripheral = connectedDevices[0];
+    }
+    
+    NSArray *services = @[[CBUUID UUIDWithString:kDISUUID]];
+    
+    NSString *charUUID = @"2A24";
+    
+    [centralManager connectPeripheral:self.peripheral options:nil completion:^(NSError * _Nullable error) {
+        [self.peripheral bf_discoverServices:services andCharacteristicsWithCompletion:^(NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"discover services error: %@", error);
+            }
+            [self.peripheral bf_readValueForCharacteristicUUIDString:charUUID completion:^(NSData * _Nullable response, NSError * _Nullable error) {
+                NSString *responseString = [NSString stringWithUTF8String:[response bytes]];
+                NSLog(@"read from %@, receive '%@', error: %@", charUUID, responseString, error);
+            }];
+        }];
     }];
     
-    [centralManager stateUpdated:^(CBCentralManager * _Nonnull centralManager, CBCentralManagerState state) {
-
+    [self.peripheral bf_readRSSIWithHandler:^(NSNumber *RSSI, NSError *error) {
+        NSLog(@"RSSI: %@", RSSI);
     }];
 }
 
