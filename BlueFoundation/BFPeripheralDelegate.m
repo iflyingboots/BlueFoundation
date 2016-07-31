@@ -11,7 +11,10 @@
 #import "BFError.h"
 
 @interface BFPeripheralDelegate ()
-@property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray<NSString *> *> *mutableServices;
+@property (nonatomic, strong, nonnull) NSMutableDictionary<NSString *, NSMutableArray<NSString *> *> *mutableServices;
+@property (nonatomic, copy, nullable) NSString *currentWriteCharacteristicUUIDString;
+@property (nonatomic, copy, nullable) NSString *currentReadCharacteristicUUIDString;
+@property (nonatomic, copy, nullable) NSString *currentNotifyCharacteristicUUIDString;
 @end
 
 @implementation BFPeripheralDelegate
@@ -29,31 +32,45 @@
     return self;
 }
 
-#pragma mark - Setters
+#pragma mark - Set handlers
 
-- (void)setWriteWithNotifyHandler:(BFPeripheralDelegateWriteWithNotifyHandler)writeWithNotifyHandler
+- (void)setWriteWithNotifyHandler:(BFPeripheralDelegateWriteWithNotifyHandler)writeWithNotifyHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString notifyCharacteristicUUIDString:(NSString * _Nonnull)notifyCharacteristicUUIDString
 {
-    _writeWithNotifyHandler = [writeWithNotifyHandler copy];
+    self.writeWithNotifyHandler = writeWithNotifyHandler;
+    self.currentWriteCharacteristicUUIDString = writeCharacteristicUUIDString.uppercaseString;
+    self.currentReadCharacteristicUUIDString = nil;
+    self.currentNotifyCharacteristicUUIDString = notifyCharacteristicUUIDString.uppercaseString;
     self.state = BFPeripheralDelegateStateWriteWithNotify;
 }
 
-- (void)setWriteWithoutNotifyHandler:(BFPeripheralDelegateWriteWithoutNotifyHandler)writeWithoutNotifyHandler
+- (void)setWriteWithoutNotifyHandler:(BFPeripheralDelegateWriteWithoutNotifyHandler)writeWithoutNotifyHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString
 {
-    _writeWithoutNotifyHandler = [writeWithoutNotifyHandler copy];
+    self.writeWithoutNotifyHandler = writeWithoutNotifyHandler;
+    self.currentWriteCharacteristicUUIDString = writeCharacteristicUUIDString.uppercaseString;
+    self.currentReadCharacteristicUUIDString = nil;
+    self.currentNotifyCharacteristicUUIDString = nil;
     self.state = BFPeripheralDelegateStateWriteWithoutNotify;
 }
 
-- (void)setWriteThenReadHandler:(BFPeripheralDelegateWriteThenReadHandler)writeThenReadHandler
+- (void)setWriteThenReadHandler:(BFPeripheralDelegateWriteThenReadHandler)writeThenReadHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString readCharacteristicUUIDString:(NSString * _Nonnull)readCharacteristicUUIDString
 {
-    _writeThenReadHandler = [writeThenReadHandler copy];
+    self.writeThenReadHandler = writeThenReadHandler;
+    self.currentWriteCharacteristicUUIDString = writeCharacteristicUUIDString.uppercaseString;
+    self.currentReadCharacteristicUUIDString = readCharacteristicUUIDString.uppercaseString;
+    self.currentNotifyCharacteristicUUIDString = nil;
     self.state = BFPeripheralDelegateStateWriteThenRead;
 }
 
-- (void)setReadHandler:(BFPeripheralDelegateReadHandler)readHandler
+- (void)setReadHandler:(BFPeripheralDelegateReadHandler)readHandler readCharacteristicUUIDString:(NSString * _Nonnull)readCharacteristicUUIDString
 {
-    _readHandler = [readHandler copy];
+    self.readHandler = readHandler;
+    self.currentWriteCharacteristicUUIDString = nil;
+    self.currentReadCharacteristicUUIDString = readCharacteristicUUIDString.uppercaseString;
+    self.currentNotifyCharacteristicUUIDString = nil;
     self.state = BFPeripheralDelegateStateRead;
 }
+
+#pragma mark - Setters
 
 - (void)setState:(BFPeripheralDelegateState)state
 {
@@ -207,7 +224,7 @@
     } else if (self.state == BFPeripheralDelegateStateWriteThenReadInWriting) {
         self.state = BFPeripheralDelegateStateWriteThenReadInReading;
     } else {
-        NSAssert(nil, @"didWriteValueForCharacteristic: Illegal state: %@", @(self.state));
+        NSAssert(NO, @"didWriteValueForCharacteristic: Illegal state: %@", @(self.state));
     }
 }
 
@@ -215,22 +232,34 @@
              error:(NSError *)error
 {
     if (self.state == BFPeripheralDelegateStateRead) {
+        // not from expected characteristic
+        if (![characteristic.UUID.UUIDString.uppercaseString isEqualToString:self.currentReadCharacteristicUUIDString]) {
+            return;
+        }
         dispatch_async(self.completionQueue, ^{
             executeBlockIfExistsThenSetNil(self.readHandler, characteristic.value, error);
         });
         self.state = BFPeripheralDelegateStateReady;
     } else if (self.state == BFPeripheralDelegateStateWriteWithNotify) {
+        // not from expected characteristic
+        if (![characteristic.UUID.UUIDString.uppercaseString isEqualToString:self.currentNotifyCharacteristicUUIDString]) {
+            return;
+        }
         dispatch_async(self.completionQueue, ^{
             executeBlockIfExistsThenSetNil(self.writeWithNotifyHandler, characteristic.value, error);
         });
         self.state = BFPeripheralDelegateStateReady;
     } else if (self.state == BFPeripheralDelegateStateWriteThenReadInReading) {
+        // not from expected characteristic
+        if (![characteristic.UUID.UUIDString.uppercaseString isEqualToString:self.currentReadCharacteristicUUIDString]) {
+            return;
+        }
         dispatch_async(self.completionQueue, ^{
             executeBlockIfExistsThenSetNil(self.writeThenReadHandler, characteristic.value, error);
         });
         self.state = BFPeripheralDelegateStateReady;
     } else {
-        NSAssert(nil, @"didUpdateValueForCharacteristic: Illegal state: %@", @(self.state));
+        NSAssert(NO, @"didUpdateValueForCharacteristic: Illegal state: %@", @(self.state));
     }
 }
 

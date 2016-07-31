@@ -53,7 +53,13 @@ typedef void (^BFPeripheralDelegateReadHandler)(NSData * _Nullable response, NSE
 @property (nonatomic, copy, nullable) BFPeripheralDelegateWriteThenReadHandler writeThenReadHandler;
 @property (nonatomic, copy, nullable) BFPeripheralDelegateReadHandler readHandler;
 
+- (void)setWriteWithNotifyHandler:(BFPeripheralDelegateWriteWithNotifyHandler _Nullable)writeWithNotifyHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString notifyCharacteristicUUIDString:(NSString * _Nonnull)notifyCharacteristicUUIDString;
 
+- (void)setWriteWithoutNotifyHandler:(BFPeripheralDelegateWriteWithoutNotifyHandler _Nullable)writeWithoutNotifyHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString;
+
+- (void)setWriteThenReadHandler:(BFPeripheralDelegateWriteThenReadHandler _Nullable)writeThenReadHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString readCharacteristicUUIDString:(NSString * _Nonnull)readCharacteristicUUIDString;
+
+- (void)setReadHandler:(BFPeripheralDelegateReadHandler _Nullable)readHandler readCharacteristicUUIDString:(NSString * _Nonnull)readCharacteristicUUIDString;
 
 @end
 
