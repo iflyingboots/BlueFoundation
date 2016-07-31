@@ -3,11 +3,10 @@
 //  BlueFoundationExample
 //
 //  Created by Xin Wang on 7/25/16.
-//  Copyright © 2016 Xin Wang. All rights reserved.
+//  Copyright © 2016 EtchingLab. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import <BlueFoundation/BlueFoundation.h>
 
 @interface AppDelegate ()
 
@@ -18,7 +17,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [BFCentralManager sharedManager];
     return YES;
 }
 

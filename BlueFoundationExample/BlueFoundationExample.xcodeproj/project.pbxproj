@@ -14,8 +14,8 @@
 		2255B4041D464F6B00260510 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2255B4031D464F6B00260510 /* Assets.xcassets */; };
 		2255B4071D464F6B00260510 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2255B4051D464F6B00260510 /* LaunchScreen.storyboard */; };
 		2255B4121D464F6B00260510 /* BlueFoundationExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2255B4111D464F6B00260510 /* BlueFoundationExampleTests.m */; };
-		2255B4241D46513800260510 /* BlueFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2255B4231D46513800260510 /* BlueFoundation.framework */; };
-		2255B4251D46513800260510 /* BlueFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2255B4231D46513800260510 /* BlueFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		941B029E1D48557B004F6D2B /* BlueFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 941B02981D4854A1004F6D2B /* BlueFoundation.framework */; };
+		941B029F1D48557B004F6D2B /* BlueFoundation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 941B02981D4854A1004F6D2B /* BlueFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,15 +29,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		2255B4261D46513900260510 /* Embed Frameworks */ = {
+		941B029C1D4854C2004F6D2B /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2255B4251D46513800260510 /* BlueFoundation.framework in Embed Frameworks */,
+				941B029F1D48557B004F6D2B /* BlueFoundation.framework in CopyFiles */,
 			);
-			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -56,7 +55,7 @@
 		2255B40D1D464F6B00260510 /* BlueFoundationExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlueFoundationExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2255B4111D464F6B00260510 /* BlueFoundationExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlueFoundationExampleTests.m; sourceTree = "<group>"; };
 		2255B4131D464F6B00260510 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2255B4231D46513800260510 /* BlueFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = BlueFoundation.framework; path = "/Users/xin/Library/Developer/Xcode/DerivedData/BlueFoundation-gslqvagmdjaxvwcohtnltfdgtlzd/Build/Products/Debug-iphoneos/BlueFoundation.framework"; sourceTree = "<absolute>"; };
+		941B02981D4854A1004F6D2B /* BlueFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BlueFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2255B4241D46513800260510 /* BlueFoundation.framework in Frameworks */,
+				941B029E1D48557B004F6D2B /* BlueFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,7 +80,7 @@
 		2255B3EB1D464F6A00260510 = {
 			isa = PBXGroup;
 			children = (
-				2255B4231D46513800260510 /* BlueFoundation.framework */,
+				941B02981D4854A1004F6D2B /* BlueFoundation.framework */,
 				2255B3F61D464F6B00260510 /* BlueFoundationExample */,
 				2255B4101D464F6B00260510 /* BlueFoundationExampleTests */,
 				2255B3F51D464F6B00260510 /* Products */,
@@ -140,7 +139,7 @@
 				2255B3F01D464F6B00260510 /* Sources */,
 				2255B3F11D464F6B00260510 /* Frameworks */,
 				2255B3F21D464F6B00260510 /* Resources */,
-				2255B4261D46513900260510 /* Embed Frameworks */,
+				941B029C1D4854C2004F6D2B /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -176,7 +175,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0730;
-				ORGANIZATIONNAME = "Xin Wang";
+				ORGANIZATIONNAME = EtchingLab;
 				TargetAttributes = {
 					2255B3F31D464F6B00260510 = {
 						CreatedOnToolsVersion = 7.3;
@@ -424,6 +423,7 @@
 				2255B4181D464F6B00260510 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2255B4191D464F6B00260510 /* Build configuration list for PBXNativeTarget "BlueFoundationExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -432,6 +432,7 @@
 				2255B41B1D464F6B00260510 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

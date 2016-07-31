@@ -3,15 +3,33 @@
 //  BlueFoundation
 //
 //  Created by Xin Wang on 7/25/16.
-//  Copyright © 2016 Xin Wang. All rights reserved.
+//  Copyright © 2016 EtchingLab. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@class CBPeripheral;
+@import CoreBluetooth;
+
+NS_ASSUME_NONNULL_BEGIN
+
+typedef void (^BFCentralManagerScanCompletionHandler)(CBPeripheral *peripheral, NSDictionary<NSString *,id> *advertisementData, NSNumber *RSSI, BOOL *connectNeeded, BOOL *stopScan);
+typedef void (^BFCentralManagerStateDidUpdateHandler)(CBCentralManagerState state);
+typedef void (^BFCentralManagerConnectHandler)(NSError * _Nullable error);
 
 @interface BFCentralManager : NSObject
 
-+ (instancetype)sharedManager;
++ (nullable instancetype)manager;
+
+@property (nonatomic, strong, nullable) dispatch_queue_t completionQueue;
+
+- (void)scanForPeripheralsWithServices:(nullable NSArray<CBUUID *> *)serviceUUIDs options:(nullable NSDictionary<NSString *, id> *)options completion:(BFCentralManagerScanCompletionHandler)handler;
+
+- (nullable NSArray<CBPeripheral *> *)retrieveConnectedPeripheralsWithServices:(nullable NSArray<CBUUID *> *)serviceUUIDs;
+
+- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary<NSString *,id> *)options completion:(BFCentralManagerConnectHandler)handler;
+
+- (void)stateUpdated:(BFCentralManagerStateDidUpdateHandler)handler;
 
 @end
+
+NS_ASSUME_NONNULL_END

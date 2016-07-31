@@ -7,12 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		223D0E211D47918E00CC6ACC /* BFPeripheralManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 223D0E1F1D47918E00CC6ACC /* BFPeripheralManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		223D0E221D47918E00CC6ACC /* BFPeripheralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 223D0E201D47918E00CC6ACC /* BFPeripheralManager.m */; };
+		224A48A71D482DC30085518C /* CBPeripheral+BlueFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 224A48A51D482DC30085518C /* CBPeripheral+BlueFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		224A48A81D482DC30085518C /* CBPeripheral+BlueFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 224A48A61D482DC30085518C /* CBPeripheral+BlueFoundation.m */; };
+		224A48AB1D48E6230085518C /* BFPeripheralDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 224A48A91D48E6230085518C /* BFPeripheralDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		224A48AC1D48E6230085518C /* BFPeripheralDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 224A48AA1D48E6230085518C /* BFPeripheralDelegate.m */; };
+		224A48B01D48EF450085518C /* NSString+BlueFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 224A48AE1D48EF450085518C /* NSString+BlueFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		224A48B11D48EF450085518C /* NSString+BlueFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 224A48AF1D48EF450085518C /* NSString+BlueFoundation.m */; };
+		224A48B41D4BB4290085518C /* BFManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 224A48B21D4BB4290085518C /* BFManager.h */; };
+		224A48B51D4BB4290085518C /* BFManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 224A48B31D4BB4290085518C /* BFManager.m */; };
+		224A48B81D4C48750085518C /* BFError.h in Headers */ = {isa = PBXBuildFile; fileRef = 224A48B61D4C48750085518C /* BFError.h */; };
+		224A48B91D4C48750085518C /* BFError.m in Sources */ = {isa = PBXBuildFile; fileRef = 224A48B71D4C48750085518C /* BFError.m */; };
+		224A48BC1D4CFCD60085518C /* BlueFoundation.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 224A48BB1D4CFCD60085518C /* BlueFoundation.bundle */; };
 		2255B3D01D463FF900260510 /* BlueFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 2255B3CF1D463FF900260510 /* BlueFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2255B3D71D463FF900260510 /* BlueFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2255B3CC1D463FF900260510 /* BlueFoundation.framework */; };
 		2255B3DC1D463FF900260510 /* BlueFoundationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2255B3DB1D463FF900260510 /* BlueFoundationTests.m */; };
 		2255B3E81D4640AA00260510 /* BFCentralManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2255B3E61D4640AA00260510 /* BFCentralManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2255B3E91D4640AA00260510 /* BFCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2255B3E71D4640AA00260510 /* BFCentralManager.m */; };
 		2255B3EA1D46455100260510 /* BFCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2255B3E71D4640AA00260510 /* BFCentralManager.m */; };
+		941B02A51D49C694004F6D2B /* BFUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 941B02A41D49C694004F6D2B /* BFUtilities.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +40,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		223D0E1F1D47918E00CC6ACC /* BFPeripheralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFPeripheralManager.h; sourceTree = "<group>"; };
+		223D0E201D47918E00CC6ACC /* BFPeripheralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFPeripheralManager.m; sourceTree = "<group>"; };
+		224A48A51D482DC30085518C /* CBPeripheral+BlueFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBPeripheral+BlueFoundation.h"; sourceTree = "<group>"; };
+		224A48A61D482DC30085518C /* CBPeripheral+BlueFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBPeripheral+BlueFoundation.m"; sourceTree = "<group>"; };
+		224A48A91D48E6230085518C /* BFPeripheralDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFPeripheralDelegate.h; sourceTree = "<group>"; };
+		224A48AA1D48E6230085518C /* BFPeripheralDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFPeripheralDelegate.m; sourceTree = "<group>"; };
+		224A48AE1D48EF450085518C /* NSString+BlueFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BlueFoundation.h"; sourceTree = "<group>"; };
+		224A48AF1D48EF450085518C /* NSString+BlueFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BlueFoundation.m"; sourceTree = "<group>"; };
+		224A48B21D4BB4290085518C /* BFManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFManager.h; sourceTree = "<group>"; };
+		224A48B31D4BB4290085518C /* BFManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFManager.m; sourceTree = "<group>"; };
+		224A48B61D4C48750085518C /* BFError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFError.h; sourceTree = "<group>"; };
+		224A48B71D4C48750085518C /* BFError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFError.m; sourceTree = "<group>"; };
+		224A48BB1D4CFCD60085518C /* BlueFoundation.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BlueFoundation.bundle; sourceTree = "<group>"; };
 		2255B3CC1D463FF900260510 /* BlueFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlueFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2255B3CF1D463FF900260510 /* BlueFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlueFoundation.h; sourceTree = "<group>"; };
 		2255B3D11D463FF900260510 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -34,6 +61,7 @@
 		2255B3DD1D463FF900260510 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2255B3E61D4640AA00260510 /* BFCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFCentralManager.h; sourceTree = "<group>"; };
 		2255B3E71D4640AA00260510 /* BFCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFCentralManager.m; sourceTree = "<group>"; };
+		941B02A41D49C694004F6D2B /* BFUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFUtilities.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,12 +83,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		224A48AD1D48EEEC0085518C /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				224A48AE1D48EF450085518C /* NSString+BlueFoundation.h */,
+				224A48AF1D48EF450085518C /* NSString+BlueFoundation.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		224A48BA1D4CF9DB0085518C /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				224A48BB1D4CFCD60085518C /* BlueFoundation.bundle */,
+				2255B3D11D463FF900260510 /* Info.plist */,
+			);
+			name = Support;
+			path = BlueFoundation/Support;
+			sourceTree = "<group>";
+		};
 		2255B3C21D463FF900260510 = {
 			isa = PBXGroup;
 			children = (
 				2255B3CE1D463FF900260510 /* BlueFoundation */,
 				2255B3DA1D463FF900260510 /* BlueFoundationTests */,
 				2255B3CD1D463FF900260510 /* Products */,
+				224A48BA1D4CF9DB0085518C /* Support */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,10 +124,21 @@
 		2255B3CE1D463FF900260510 /* BlueFoundation */ = {
 			isa = PBXGroup;
 			children = (
+				224A48AD1D48EEEC0085518C /* Category */,
 				2255B3CF1D463FF900260510 /* BlueFoundation.h */,
-				2255B3D11D463FF900260510 /* Info.plist */,
+				224A48B21D4BB4290085518C /* BFManager.h */,
+				224A48B31D4BB4290085518C /* BFManager.m */,
 				2255B3E61D4640AA00260510 /* BFCentralManager.h */,
 				2255B3E71D4640AA00260510 /* BFCentralManager.m */,
+				223D0E1F1D47918E00CC6ACC /* BFPeripheralManager.h */,
+				223D0E201D47918E00CC6ACC /* BFPeripheralManager.m */,
+				224A48A51D482DC30085518C /* CBPeripheral+BlueFoundation.h */,
+				224A48A61D482DC30085518C /* CBPeripheral+BlueFoundation.m */,
+				224A48A91D48E6230085518C /* BFPeripheralDelegate.h */,
+				224A48AA1D48E6230085518C /* BFPeripheralDelegate.m */,
+				941B02A41D49C694004F6D2B /* BFUtilities.h */,
+				224A48B61D4C48750085518C /* BFError.h */,
+				224A48B71D4C48750085518C /* BFError.m */,
 			);
 			path = BlueFoundation;
 			sourceTree = "<group>";
@@ -100,8 +159,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				941B02A51D49C694004F6D2B /* BFUtilities.h in Headers */,
+				223D0E211D47918E00CC6ACC /* BFPeripheralManager.h in Headers */,
 				2255B3E81D4640AA00260510 /* BFCentralManager.h in Headers */,
+				224A48A71D482DC30085518C /* CBPeripheral+BlueFoundation.h in Headers */,
+				224A48B41D4BB4290085518C /* BFManager.h in Headers */,
+				224A48B81D4C48750085518C /* BFError.h in Headers */,
+				224A48AB1D48E6230085518C /* BFPeripheralDelegate.h in Headers */,
 				2255B3D01D463FF900260510 /* BlueFoundation.h in Headers */,
+				224A48B01D48EF450085518C /* NSString+BlueFoundation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,7 +218,7 @@
 			attributes = {
 				CLASSPREFIX = BF;
 				LastUpgradeCheck = 0730;
-				ORGANIZATIONNAME = "Xin Wang";
+				ORGANIZATIONNAME = EtchingLab;
 				TargetAttributes = {
 					2255B3CB1D463FF900260510 = {
 						CreatedOnToolsVersion = 7.3;
@@ -185,6 +251,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				224A48BC1D4CFCD60085518C /* BlueFoundation.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,7 +269,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				224A48AC1D48E6230085518C /* BFPeripheralDelegate.m in Sources */,
+				224A48A81D482DC30085518C /* CBPeripheral+BlueFoundation.m in Sources */,
 				2255B3E91D4640AA00260510 /* BFCentralManager.m in Sources */,
+				224A48B51D4BB4290085518C /* BFManager.m in Sources */,
+				224A48B91D4C48750085518C /* BFError.m in Sources */,
+				223D0E221D47918E00CC6ACC /* BFPeripheralManager.m in Sources */,
+				224A48B11D48EF450085518C /* NSString+BlueFoundation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,7 +396,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = BlueFoundation/Info.plist;
+				INFOPLIST_FILE = BlueFoundation/Support/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -340,7 +413,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = BlueFoundation/Info.plist;
+				INFOPLIST_FILE = BlueFoundation/Support/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

@@ -3,7 +3,7 @@
 //  BlueFoundation
 //
 //  Created by Xin Wang on 7/25/16.
-//  Copyright © 2016 Xin Wang. All rights reserved.
+//  Copyright © 2016 EtchingLab. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -17,3 +17,7 @@ FOUNDATION_EXPORT const unsigned char BlueFoundationVersionString[];
 // In this header, you should import all the public headers of your framework using statements like #import <BlueFoundation/PublicHeader.h>
 
 #import <BlueFoundation/BFCentralManager.h>
+#import <BlueFoundation/BFPeripheralManager.h>
+#import <BlueFoundation/BFPeripheralDelegate.h>
+#import <BlueFoundation/CBPeripheral+BlueFoundation.h>
+#import <BlueFoundation/NSString+BlueFoundation.h>
