@@ -25,19 +25,27 @@ static NSString *const kBlueFoundationErrorDomain = @"com.etchinglab.bluefoundat
     
     switch (code) {
         case BFErrorCodeDefault: {
-            message = NSLocalizedStringFromTableInBundle(@"errDefault", @"BlueFoundation", resourcesBundle, nil);
+            message = NSLocalizedStringFromTableInBundle(@"Default error, nobody knows why.", @"BlueFoundation", resourcesBundle, nil);
             break;
         }
-        case BFErrorCodeNotConnected: {
-            message = NSLocalizedStringFromTableInBundle(@"errPeripheralNotConnected", @"BlueFoundation", resourcesBundle, nil);
+        case BFErrorCodePeripheralDisconnected: {
+            message = NSLocalizedStringFromTableInBundle(@"Peripheral is disconnected.", @"BlueFoundation", resourcesBundle, nil);
             break;
         }
         case BFErrorCodePeripheralBusy: {
-            message = NSLocalizedStringFromTableInBundle(@"errPeripheralBusy", @"BlueFoundation", resourcesBundle, nil);
+            message = NSLocalizedStringFromTableInBundle(@"Peripheral is busy.", @"BlueFoundation", resourcesBundle, nil);
+            break;
+        }
+        case BFErrorCodePeripheralNoServiceDiscovered: {
+            message = NSLocalizedStringFromTableInBundle(@"Peripheral has no service.", @"BlueFoundation", resourcesBundle, nil);
+            break;
+        }
+        case BFErrorCodePeripheralNoSuchCharacteristic: {
+            message = NSLocalizedStringFromTableInBundle(@"Peripheral has no such characteristic.", @"BlueFoundation", resourcesBundle, nil);
             break;
         }
     }
-    
+
     NSDictionary *userInfo = nil;
     if (message) {
         userInfo = @{NSLocalizedDescriptionKey: message};

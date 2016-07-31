@@ -10,7 +10,9 @@
 
 typedef NS_ENUM(uint8_t, BFErrorCode) {
     BFErrorCodeDefault = 0,
-    BFErrorCodeNotConnected,
+    BFErrorCodePeripheralDisconnected,
+    BFErrorCodePeripheralNoServiceDiscovered,
+    BFErrorCodePeripheralNoSuchCharacteristic,
     BFErrorCodePeripheralBusy,
 };
 
