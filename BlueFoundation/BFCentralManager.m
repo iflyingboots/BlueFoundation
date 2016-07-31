@@ -8,6 +8,8 @@
 
 #import "BFCentralManager.h"
 #import "BFPeripheralManager.h"
+#import "BFPeripheralDelegate.h"
+#import "BFUtilities.h"
 
 static dispatch_queue_t central_manager_processing_queue()
 {
@@ -25,6 +27,7 @@ static dispatch_queue_t central_manager_processing_queue()
 @property (strong, nonatomic) BFPeripheralManager *peripheralManager;
 @property (copy, nonatomic) BFCentralManagerScanCompletionHandler scanCompletionHandler;
 @property (copy, nonatomic) BFCentralManagerStateDidUpdateHandler stateDidUpdateHandler;
+@property (copy, nonatomic) BFCentralManagerConnectHandler connectHandler;
 @end
 
 @implementation BFCentralManager
@@ -35,7 +38,7 @@ static dispatch_queue_t central_manager_processing_queue()
 
 + (void)load
 {
-    // Trigger CBCentralManager to run in a very early phase
+    // Preload CBCentralManager
     [[self class] manager];
 }
 
@@ -78,8 +81,10 @@ static dispatch_queue_t central_manager_processing_queue()
     return [self.centralManager retrieveConnectedPeripheralsWithServices:serviceUUIDs];
 }
 
-- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary<NSString *,id> *)options
+- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary<NSString *,id> *)options completion:(BFCentralManagerConnectHandler)handler
 {
+    // TODO: multiple peripherals?
+    self.connectHandler = handler;
     [self.peripheralManager addPeripheral:peripheral];
     [self.centralManager connectPeripheral:peripheral options:options];
 }
@@ -109,14 +114,12 @@ static dispatch_queue_t central_manager_processing_queue()
             self.scanCompletionHandler(peripheral, advertisementData, RSSI, &_didDiscoverPeripheralConnectNeededFlag, &_didDiscoverPeripheralStopScanFlag);
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (_didDiscoverPeripheralStopScanFlag)
-                {
+                if (_didDiscoverPeripheralStopScanFlag) {
                     self.scanCompletionHandler = nil;
                     [self.centralManager stopScan];
                 }
             
-                if (_didDiscoverPeripheralConnectNeededFlag)
-                {
+                if (_didDiscoverPeripheralConnectNeededFlag) {
                     [self.centralManager connectPeripheral:peripheral options:nil];
                     _didDiscoverPeripheralConnectNeededFlag = NO;
                 }
@@ -127,12 +130,20 @@ static dispatch_queue_t central_manager_processing_queue()
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
-    
+    BFPeripheralDelegate *peripheralDelegate = [self.peripheralManager getDelegateWithPeripheal:peripheral];
+    if (peripheralDelegate) {
+        peripheralDelegate.state = BFPeripheralDelegateStateConnected;
+    }
+    executeBlockIfExistsThenSetNil(self.connectHandler, nil);
 }
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    
+    BFPeripheralDelegate *peripheralDelegate = [self.peripheralManager getDelegateWithPeripheal:peripheral];
+    if (peripheralDelegate) {
+        peripheralDelegate.state = BFPeripheralDelegateStateIdle;
+    }
+    executeBlockIfExistsThenSetNil(self.connectHandler, error);
 }
 
 @end

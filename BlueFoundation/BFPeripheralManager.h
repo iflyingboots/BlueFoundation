@@ -10,6 +10,8 @@
 
 @import CoreBluetooth;
 
+@class BFPeripheralDelegate;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BFPeripheralManager : NSObject
@@ -17,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable instancetype)manager;
 
 - (void)addPeripheral:(CBPeripheral *)peripheral;
+
+- (void)removePeripheral:(CBPeripheral *)peripheral;
+
+- (nullable BFPeripheralDelegate *)getDelegateWithPeripheal:(CBPeripheral *)peripheral;
 
 @end
 

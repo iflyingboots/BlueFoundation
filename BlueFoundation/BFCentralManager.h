@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^BFCentralManagerScanCompletionHandler)(CBPeripheral *peripheral, NSDictionary<NSString *,id> *advertisementData, NSNumber *RSSI, BOOL *connectNeeded, BOOL *stopScan);
 typedef void (^BFCentralManagerStateDidUpdateHandler)(CBCentralManagerState state);
+typedef void (^BFCentralManagerConnectHandler)(NSError * _Nullable error);
 
 @interface BFCentralManager : NSObject
 
@@ -25,7 +26,7 @@ typedef void (^BFCentralManagerStateDidUpdateHandler)(CBCentralManagerState stat
 
 - (nullable NSArray<CBPeripheral *> *)retrieveConnectedPeripheralsWithServices:(nullable NSArray<CBUUID *> *)serviceUUIDs;
 
-- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary<NSString *,id> *)options;
+- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary<NSString *,id> *)options completion:(BFCentralManagerConnectHandler)handler;
 
 - (void)stateUpdated:(BFCentralManagerStateDidUpdateHandler)handler;
 

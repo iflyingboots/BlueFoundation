@@ -18,4 +18,6 @@ FOUNDATION_EXPORT const unsigned char BlueFoundationVersionString[];
 
 #import <BlueFoundation/BFCentralManager.h>
 #import <BlueFoundation/BFPeripheralManager.h>
+#import <BlueFoundation/BFPeripheralDelegate.h>
+#import <BlueFoundation/CBPeripheral+BlueFoundation.h>
 #import <BlueFoundation/NSString+BlueFoundation.h>

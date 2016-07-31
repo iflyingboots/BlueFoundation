@@ -45,8 +45,30 @@
     delegate.manager = self;
     peripheral.delegate = delegate;
     [self.lock lock];
-    self.mutableKeyedPeripheralDelegates[peripheral.identifier.UUIDString] = delegate;
+    self.mutableKeyedPeripheralDelegates[peripheral.identifier.UUIDString.uppercaseString] = delegate;
     [self.lock unlock];
+}
+
+- (void)removePeripheral:(CBPeripheral *)peripheral
+{
+    [self.lock lock];
+    BFPeripheralDelegate *peripheralDelegate = self.mutableKeyedPeripheralDelegates[peripheral.identifier.UUIDString.uppercaseString];
+    [self.lock unlock];
+    if (peripheralDelegate) {
+        peripheral.delegate = nil;
+        [self.lock lock];
+        [self.mutableKeyedPeripheralDelegates removeObjectForKey:peripheral.identifier.UUIDString.uppercaseString];
+        [self.lock unlock];
+        peripheralDelegate = nil;
+    }
+}
+
+- (nullable BFPeripheralDelegate *)getDelegateWithPeripheal:(CBPeripheral *)peripheral
+{
+    [self.lock lock];
+    BFPeripheralDelegate *delegate = self.mutableKeyedPeripheralDelegates[peripheral.identifier.UUIDString.uppercaseString];
+    [self.lock unlock];
+    return delegate;
 }
 
 @end
