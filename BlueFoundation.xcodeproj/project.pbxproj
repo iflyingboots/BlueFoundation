@@ -7,19 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		223D0E211D47918E00CC6ACC /* BFPeripheralManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 223D0E1F1D47918E00CC6ACC /* BFPeripheralManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		223D0E211D47918E00CC6ACC /* BFPeripheralManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 223D0E1F1D47918E00CC6ACC /* BFPeripheralManager.h */; };
 		223D0E221D47918E00CC6ACC /* BFPeripheralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 223D0E201D47918E00CC6ACC /* BFPeripheralManager.m */; };
 		224A48A71D482DC30085518C /* CBPeripheral+BlueFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 224A48A51D482DC30085518C /* CBPeripheral+BlueFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		224A48A81D482DC30085518C /* CBPeripheral+BlueFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 224A48A61D482DC30085518C /* CBPeripheral+BlueFoundation.m */; };
-		224A48AB1D48E6230085518C /* BFPeripheralDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 224A48A91D48E6230085518C /* BFPeripheralDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		224A48AB1D48E6230085518C /* BFPeripheralDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 224A48A91D48E6230085518C /* BFPeripheralDelegate.h */; };
 		224A48AC1D48E6230085518C /* BFPeripheralDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 224A48AA1D48E6230085518C /* BFPeripheralDelegate.m */; };
 		224A48B01D48EF450085518C /* NSString+BlueFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 224A48AE1D48EF450085518C /* NSString+BlueFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		224A48B11D48EF450085518C /* NSString+BlueFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 224A48AF1D48EF450085518C /* NSString+BlueFoundation.m */; };
-		224A48B41D4BB4290085518C /* BFManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 224A48B21D4BB4290085518C /* BFManager.h */; };
-		224A48B51D4BB4290085518C /* BFManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 224A48B31D4BB4290085518C /* BFManager.m */; };
 		224A48B81D4C48750085518C /* BFError.h in Headers */ = {isa = PBXBuildFile; fileRef = 224A48B61D4C48750085518C /* BFError.h */; };
 		224A48B91D4C48750085518C /* BFError.m in Sources */ = {isa = PBXBuildFile; fileRef = 224A48B71D4C48750085518C /* BFError.m */; };
 		224A48BC1D4CFCD60085518C /* BlueFoundation.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 224A48BB1D4CFCD60085518C /* BlueFoundation.bundle */; };
+		224A48BE1D4F71EF0085518C /* BFDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 224A48BD1D4F71EF0085518C /* BFDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2255B3D01D463FF900260510 /* BlueFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 2255B3CF1D463FF900260510 /* BlueFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2255B3D71D463FF900260510 /* BlueFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2255B3CC1D463FF900260510 /* BlueFoundation.framework */; };
 		2255B3DC1D463FF900260510 /* BlueFoundationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2255B3DB1D463FF900260510 /* BlueFoundationTests.m */; };
@@ -48,11 +47,10 @@
 		224A48AA1D48E6230085518C /* BFPeripheralDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFPeripheralDelegate.m; sourceTree = "<group>"; };
 		224A48AE1D48EF450085518C /* NSString+BlueFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BlueFoundation.h"; sourceTree = "<group>"; };
 		224A48AF1D48EF450085518C /* NSString+BlueFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BlueFoundation.m"; sourceTree = "<group>"; };
-		224A48B21D4BB4290085518C /* BFManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFManager.h; sourceTree = "<group>"; };
-		224A48B31D4BB4290085518C /* BFManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFManager.m; sourceTree = "<group>"; };
 		224A48B61D4C48750085518C /* BFError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFError.h; sourceTree = "<group>"; };
 		224A48B71D4C48750085518C /* BFError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFError.m; sourceTree = "<group>"; };
 		224A48BB1D4CFCD60085518C /* BlueFoundation.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BlueFoundation.bundle; sourceTree = "<group>"; };
+		224A48BD1D4F71EF0085518C /* BFDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFDefines.h; sourceTree = "<group>"; };
 		2255B3CC1D463FF900260510 /* BlueFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlueFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2255B3CF1D463FF900260510 /* BlueFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlueFoundation.h; sourceTree = "<group>"; };
 		2255B3D11D463FF900260510 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -126,8 +124,7 @@
 			children = (
 				224A48AD1D48EEEC0085518C /* Category */,
 				2255B3CF1D463FF900260510 /* BlueFoundation.h */,
-				224A48B21D4BB4290085518C /* BFManager.h */,
-				224A48B31D4BB4290085518C /* BFManager.m */,
+				224A48BD1D4F71EF0085518C /* BFDefines.h */,
 				2255B3E61D4640AA00260510 /* BFCentralManager.h */,
 				2255B3E71D4640AA00260510 /* BFCentralManager.m */,
 				223D0E1F1D47918E00CC6ACC /* BFPeripheralManager.h */,
@@ -163,7 +160,7 @@
 				223D0E211D47918E00CC6ACC /* BFPeripheralManager.h in Headers */,
 				2255B3E81D4640AA00260510 /* BFCentralManager.h in Headers */,
 				224A48A71D482DC30085518C /* CBPeripheral+BlueFoundation.h in Headers */,
-				224A48B41D4BB4290085518C /* BFManager.h in Headers */,
+				224A48BE1D4F71EF0085518C /* BFDefines.h in Headers */,
 				224A48B81D4C48750085518C /* BFError.h in Headers */,
 				224A48AB1D48E6230085518C /* BFPeripheralDelegate.h in Headers */,
 				2255B3D01D463FF900260510 /* BlueFoundation.h in Headers */,
@@ -272,7 +269,6 @@
 				224A48AC1D48E6230085518C /* BFPeripheralDelegate.m in Sources */,
 				224A48A81D482DC30085518C /* CBPeripheral+BlueFoundation.m in Sources */,
 				2255B3E91D4640AA00260510 /* BFCentralManager.m in Sources */,
-				224A48B51D4BB4290085518C /* BFManager.m in Sources */,
 				224A48B91D4C48750085518C /* BFError.m in Sources */,
 				223D0E221D47918E00CC6ACC /* BFPeripheralManager.m in Sources */,
 				224A48B11D48EF450085518C /* NSString+BlueFoundation.m in Sources */,

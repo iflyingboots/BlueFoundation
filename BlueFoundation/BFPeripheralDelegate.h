@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BFDefines.h"
 
 @import CoreBluetooth;
 
@@ -28,14 +29,6 @@ typedef NS_ENUM(uint8_t, BFPeripheralDelegateState) {
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^BFPeripheralDelegateConnectHandler)(NSError * _Nullable error);
-typedef void (^BFPeripheralDelegateDidDiscoverServicesAndCharacteristicsHandler)(NSError * _Nullable error);
-typedef void (^BFPeripheralDelegateReadRSSIHandler)(NSNumber *RSSI, NSError * _Nullable error);
-typedef void (^BFPeripheralDelegateWriteWithNotifyHandler)(NSData * _Nullable response, NSError * _Nullable error);
-typedef void (^BFPeripheralDelegateWriteWithoutNotifyHandler)(NSError * _Nullable error);
-typedef void (^BFPeripheralDelegateWriteThenReadHandler)(NSData * _Nullable response, NSError * _Nullable error);
-typedef void (^BFPeripheralDelegateReadHandler)(NSData * _Nullable response, NSError * _Nullable error);
-
 @interface BFPeripheralDelegate : NSObject <CBPeripheralDelegate>
 
 @property (nonatomic, weak, nullable) BFPeripheralManager *manager;
@@ -45,21 +38,21 @@ typedef void (^BFPeripheralDelegateReadHandler)(NSData * _Nullable response, NSE
 @property (nonatomic, strong, nullable) dispatch_queue_t completionQueue;
 
 // callbacks
-@property (nonatomic, copy, nullable) BFPeripheralDelegateDidDiscoverServicesAndCharacteristicsHandler didDiscoverServicesAndCharacteriscitcsHandler;
-@property (nonatomic, copy, nullable) BFPeripheralDelegateReadRSSIHandler readRSSIHandler;
+@property (nonatomic, copy, nullable) BFPeripheralDidDiscoverServicesAndCharacteristicsHandler didDiscoverServicesAndCharacteriscitcsHandler;
+@property (nonatomic, copy, nullable) BFPeripheralReadRSSIHandler readRSSIHandler;
 
-@property (nonatomic, copy, nullable) BFPeripheralDelegateWriteWithNotifyHandler writeWithNotifyHandler;
-@property (nonatomic, copy, nullable) BFPeripheralDelegateWriteWithoutNotifyHandler writeWithoutNotifyHandler;
-@property (nonatomic, copy, nullable) BFPeripheralDelegateWriteThenReadHandler writeThenReadHandler;
-@property (nonatomic, copy, nullable) BFPeripheralDelegateReadHandler readHandler;
+@property (nonatomic, copy, nullable) BFPeripheralWriteWithNotifyHandler writeWithNotifyHandler;
+@property (nonatomic, copy, nullable) BFPeripheralWriteWithoutNotifyHandler writeWithoutNotifyHandler;
+@property (nonatomic, copy, nullable) BFPeripheralWriteThenReadHandler writeThenReadHandler;
+@property (nonatomic, copy, nullable) BFPeripheralReadHandler readHandler;
 
-- (void)setWriteWithNotifyHandler:(BFPeripheralDelegateWriteWithNotifyHandler _Nullable)writeWithNotifyHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString notifyCharacteristicUUIDString:(NSString * _Nonnull)notifyCharacteristicUUIDString;
+- (void)setWriteWithNotifyHandler:(BFPeripheralWriteWithNotifyHandler _Nullable)writeWithNotifyHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString notifyCharacteristicUUIDString:(NSString * _Nonnull)notifyCharacteristicUUIDString;
 
-- (void)setWriteWithoutNotifyHandler:(BFPeripheralDelegateWriteWithoutNotifyHandler _Nullable)writeWithoutNotifyHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString;
+- (void)setWriteWithoutNotifyHandler:(BFPeripheralWriteWithoutNotifyHandler _Nullable)writeWithoutNotifyHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString;
 
-- (void)setWriteThenReadHandler:(BFPeripheralDelegateWriteThenReadHandler _Nullable)writeThenReadHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString readCharacteristicUUIDString:(NSString * _Nonnull)readCharacteristicUUIDString;
+- (void)setWriteThenReadHandler:(BFPeripheralWriteThenReadHandler _Nullable)writeThenReadHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString readCharacteristicUUIDString:(NSString * _Nonnull)readCharacteristicUUIDString;
 
-- (void)setReadHandler:(BFPeripheralDelegateReadHandler _Nullable)readHandler readCharacteristicUUIDString:(NSString * _Nonnull)readCharacteristicUUIDString;
+- (void)setReadHandler:(BFPeripheralReadHandler _Nullable)readHandler readCharacteristicUUIDString:(NSString * _Nonnull)readCharacteristicUUIDString;
 
 @end
 

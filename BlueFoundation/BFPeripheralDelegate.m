@@ -34,7 +34,7 @@
 
 #pragma mark - Set handlers
 
-- (void)setWriteWithNotifyHandler:(BFPeripheralDelegateWriteWithNotifyHandler)writeWithNotifyHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString notifyCharacteristicUUIDString:(NSString * _Nonnull)notifyCharacteristicUUIDString
+- (void)setWriteWithNotifyHandler:(BFPeripheralWriteWithNotifyHandler)writeWithNotifyHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString notifyCharacteristicUUIDString:(NSString * _Nonnull)notifyCharacteristicUUIDString
 {
     self.writeWithNotifyHandler = writeWithNotifyHandler;
     self.currentWriteCharacteristicUUIDString = writeCharacteristicUUIDString.uppercaseString;
@@ -43,7 +43,7 @@
     self.state = BFPeripheralDelegateStateWriteWithNotify;
 }
 
-- (void)setWriteWithoutNotifyHandler:(BFPeripheralDelegateWriteWithoutNotifyHandler)writeWithoutNotifyHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString
+- (void)setWriteWithoutNotifyHandler:(BFPeripheralWriteWithoutNotifyHandler)writeWithoutNotifyHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString
 {
     self.writeWithoutNotifyHandler = writeWithoutNotifyHandler;
     self.currentWriteCharacteristicUUIDString = writeCharacteristicUUIDString.uppercaseString;
@@ -52,7 +52,7 @@
     self.state = BFPeripheralDelegateStateWriteWithoutNotify;
 }
 
-- (void)setWriteThenReadHandler:(BFPeripheralDelegateWriteThenReadHandler)writeThenReadHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString readCharacteristicUUIDString:(NSString * _Nonnull)readCharacteristicUUIDString
+- (void)setWriteThenReadHandler:(BFPeripheralWriteThenReadHandler)writeThenReadHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString readCharacteristicUUIDString:(NSString * _Nonnull)readCharacteristicUUIDString
 {
     self.writeThenReadHandler = writeThenReadHandler;
     self.currentWriteCharacteristicUUIDString = writeCharacteristicUUIDString.uppercaseString;
@@ -61,7 +61,7 @@
     self.state = BFPeripheralDelegateStateWriteThenRead;
 }
 
-- (void)setReadHandler:(BFPeripheralDelegateReadHandler)readHandler readCharacteristicUUIDString:(NSString * _Nonnull)readCharacteristicUUIDString
+- (void)setReadHandler:(BFPeripheralReadHandler)readHandler readCharacteristicUUIDString:(NSString * _Nonnull)readCharacteristicUUIDString
 {
     self.readHandler = readHandler;
     self.currentWriteCharacteristicUUIDString = nil;

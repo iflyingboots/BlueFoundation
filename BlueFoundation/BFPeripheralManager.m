@@ -41,6 +41,7 @@
 
 - (void)addPeripheral:(CBPeripheral *)peripheral
 {
+    NSParameterAssert(peripheral);
     BFPeripheralDelegate *delegate = [[BFPeripheralDelegate alloc] init];
     delegate.manager = self;
     peripheral.delegate = delegate;
