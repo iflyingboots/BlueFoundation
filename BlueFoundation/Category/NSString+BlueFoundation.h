@@ -8,8 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  <code>NSString (BlueFoundation)</code> category provides utilities, including a function that converts hex string to data.
+ */
 @interface NSString (BlueFoundation)
 
+/**
+ *  Get <code>NSData</code> from hex string.
+ *
+ *  @return NSData object or nil.
+ */
 - (nullable NSData *)bf_dataFromHexString;
 
 @end

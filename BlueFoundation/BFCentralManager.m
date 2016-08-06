@@ -132,7 +132,7 @@ static dispatch_queue_t central_manager_processing_queue()
 {
     BFPeripheralDelegate *peripheralDelegate = [self.peripheralManager getDelegateWithPeripheal:peripheral];
     if (peripheralDelegate) {
-        peripheralDelegate.state = BFPeripheralDelegateStateConnected;
+        peripheralDelegate.state = BFPeripheralStateConnected;
     }
     dispatch_async(self.completionQueue ?: dispatch_get_main_queue(), ^{
         executeBlockIfExistsThenSetNil(self.connectHandler, nil);
@@ -143,7 +143,7 @@ static dispatch_queue_t central_manager_processing_queue()
 {
     BFPeripheralDelegate *peripheralDelegate = [self.peripheralManager getDelegateWithPeripheal:peripheral];
     if (peripheralDelegate) {
-        peripheralDelegate.state = BFPeripheralDelegateStateIdle;
+        peripheralDelegate.state = BFPeripheralStateIdle;
     }
     dispatch_async(self.completionQueue ?: dispatch_get_main_queue(), ^{
         executeBlockIfExistsThenSetNil(self.connectHandler, error);

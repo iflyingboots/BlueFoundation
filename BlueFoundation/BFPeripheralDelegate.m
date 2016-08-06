@@ -26,7 +26,7 @@
     
     self.mutableCharacteristics = [[NSMutableDictionary alloc] init];
     self.mutableServices = [[NSMutableDictionary alloc] init];
-    self.state = BFPeripheralDelegateStateIdle;
+    self.state = BFPeripheralStateIdle;
     self.completionQueue = dispatch_get_main_queue();
     
     return self;
@@ -40,7 +40,7 @@
     self.currentWriteCharacteristicUUIDString = writeCharacteristicUUIDString.uppercaseString;
     self.currentReadCharacteristicUUIDString = nil;
     self.currentNotifyCharacteristicUUIDString = notifyCharacteristicUUIDString.uppercaseString;
-    self.state = BFPeripheralDelegateStateWriteWithNotify;
+    self.state = BFPeripheralStateWriteWithNotify;
 }
 
 - (void)setWriteWithoutNotifyHandler:(BFPeripheralWriteWithoutNotifyHandler)writeWithoutNotifyHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString
@@ -49,7 +49,7 @@
     self.currentWriteCharacteristicUUIDString = writeCharacteristicUUIDString.uppercaseString;
     self.currentReadCharacteristicUUIDString = nil;
     self.currentNotifyCharacteristicUUIDString = nil;
-    self.state = BFPeripheralDelegateStateWriteWithoutNotify;
+    self.state = BFPeripheralStateWriteWithoutNotify;
 }
 
 - (void)setWriteThenReadHandler:(BFPeripheralWriteThenReadHandler)writeThenReadHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString readCharacteristicUUIDString:(NSString * _Nonnull)readCharacteristicUUIDString
@@ -58,7 +58,7 @@
     self.currentWriteCharacteristicUUIDString = writeCharacteristicUUIDString.uppercaseString;
     self.currentReadCharacteristicUUIDString = readCharacteristicUUIDString.uppercaseString;
     self.currentNotifyCharacteristicUUIDString = nil;
-    self.state = BFPeripheralDelegateStateWriteThenRead;
+    self.state = BFPeripheralStateWriteThenRead;
 }
 
 - (void)setReadHandler:(BFPeripheralReadHandler)readHandler readCharacteristicUUIDString:(NSString * _Nonnull)readCharacteristicUUIDString
@@ -67,34 +67,34 @@
     self.currentWriteCharacteristicUUIDString = nil;
     self.currentReadCharacteristicUUIDString = readCharacteristicUUIDString.uppercaseString;
     self.currentNotifyCharacteristicUUIDString = nil;
-    self.state = BFPeripheralDelegateStateRead;
+    self.state = BFPeripheralStateRead;
 }
 
 #pragma mark - Setters
 
-- (void)setState:(BFPeripheralDelegateState)state
+- (void)setState:(BFPeripheralState)state
 {
-    BFPeripheralDelegateState previousState = _state;
+    BFPeripheralState previousState = _state;
     if (_state == state) {
         return;
     }
     switch (state) {
-        case BFPeripheralDelegateStateIdle:
-        case BFPeripheralDelegateStateConnected: {
+        case BFPeripheralStateIdle:
+        case BFPeripheralStateConnected: {
             _state = state;
             break;
         }
-        case BFPeripheralDelegateStateDiscoveringServices: {
+        case BFPeripheralStateDiscoveringServices: {
             // check connection
-            if (previousState < BFPeripheralDelegateStateConnected) {
+            if (previousState < BFPeripheralStateConnected) {
                 break;
             }
             _state = state;
             break;
         }
-        case BFPeripheralDelegateStateDiscoveringCharacteristics: {
+        case BFPeripheralStateDiscoveringCharacteristics: {
             // discovered services?
-            if (previousState < BFPeripheralDelegateStateDiscoveringServices
+            if (previousState < BFPeripheralStateDiscoveringServices
                 || self.mutableServices.count == 0
                 ) {
                 dispatch_async(self.completionQueue, ^{
@@ -106,9 +106,9 @@
             _state = state;
             break;
         }
-        case BFPeripheralDelegateStateReady: {
+        case BFPeripheralStateReady: {
             // discovered characteristcs?
-            if (previousState < BFPeripheralDelegateStateDiscoveringCharacteristics
+            if (previousState < BFPeripheralStateDiscoveringCharacteristics
                 || self.mutableServices.count == 0  // should have services
                 || self.mutableCharacteristics.count == 0 // should have characteristics
                 ) {
@@ -117,7 +117,7 @@
             _state = state;
             break;
         }
-        case BFPeripheralDelegateStateWriteWithNotify: {
+        case BFPeripheralStateWriteWithNotify: {
             // executing other operations?
             if ([self checkIsExecuting]) {
                 dispatch_async(self.completionQueue, ^{
@@ -129,7 +129,7 @@
             _state = state;
             break;
         }
-        case BFPeripheralDelegateStateWriteWithoutNotify: {
+        case BFPeripheralStateWriteWithoutNotify: {
             // executing other operations?
             if ([self checkIsExecuting]) {
                 dispatch_async(self.completionQueue, ^{
@@ -141,7 +141,7 @@
             _state = state;
             break;
         }
-        case BFPeripheralDelegateStateWriteThenRead: {
+        case BFPeripheralStateWriteThenRead: {
             // executing other operations?
             if ([self checkIsExecuting]) {
                 dispatch_async(self.completionQueue, ^{
@@ -153,23 +153,23 @@
             _state = state;
             break;
         }
-        case BFPeripheralDelegateStateWriteThenReadInWriting: {
-            if (previousState != BFPeripheralDelegateStateWriteThenRead) {
+        case BFPeripheralStateWriteThenReadInWriting: {
+            if (previousState != BFPeripheralStateWriteThenRead) {
                 BFLog(@"Invalid state transition for WriteAndReadInWriting");
                 break;
             }
             _state = state;
             break;
         }
-        case BFPeripheralDelegateStateWriteThenReadInReading: {
-            if (previousState != BFPeripheralDelegateStateWriteThenReadInWriting) {
+        case BFPeripheralStateWriteThenReadInReading: {
+            if (previousState != BFPeripheralStateWriteThenReadInWriting) {
                 BFLog(@"Invalid state transition for WriteAndReadInReading");
                 break;
             }
             _state = state;
             break;
         }
-        case BFPeripheralDelegateStateRead: {
+        case BFPeripheralStateRead: {
             // executing other operations?
             if ([self checkIsExecuting]) {
                 dispatch_async(self.completionQueue, ^{
@@ -189,18 +189,18 @@
 - (BOOL)checkIsExecuting
 {
     switch (self.state) {
-        case BFPeripheralDelegateStateIdle:
-        case BFPeripheralDelegateStateConnected:
-        case BFPeripheralDelegateStateDiscoveringServices:
-        case BFPeripheralDelegateStateDiscoveringCharacteristics:
-        case BFPeripheralDelegateStateReady:
+        case BFPeripheralStateIdle:
+        case BFPeripheralStateConnected:
+        case BFPeripheralStateDiscoveringServices:
+        case BFPeripheralStateDiscoveringCharacteristics:
+        case BFPeripheralStateReady:
             return NO;
-        case BFPeripheralDelegateStateWriteWithNotify:
-        case BFPeripheralDelegateStateWriteWithoutNotify:
-        case BFPeripheralDelegateStateWriteThenRead:
-        case BFPeripheralDelegateStateWriteThenReadInWriting:
-        case BFPeripheralDelegateStateWriteThenReadInReading:
-        case BFPeripheralDelegateStateRead:
+        case BFPeripheralStateWriteWithNotify:
+        case BFPeripheralStateWriteWithoutNotify:
+        case BFPeripheralStateWriteThenRead:
+        case BFPeripheralStateWriteThenReadInWriting:
+        case BFPeripheralStateWriteThenReadInReading:
+        case BFPeripheralStateRead:
             return YES;
     }
 }
@@ -211,18 +211,18 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if (self.state == BFPeripheralDelegateStateWriteWithoutNotify) {
+    if (self.state == BFPeripheralStateWriteWithoutNotify) {
         dispatch_async(self.completionQueue, ^{
             executeBlockIfExistsThenSetNil(self.writeWithoutNotifyHandler, error);
         });
-        self.state = BFPeripheralDelegateStateReady;
-    } else if (self.state == BFPeripheralDelegateStateWriteWithNotify) {
+        self.state = BFPeripheralStateReady;
+    } else if (self.state == BFPeripheralStateWriteWithNotify) {
         dispatch_async(self.completionQueue, ^{
             executeBlockIfExistsThenSetNil(self.writeWithNotifyHandler, characteristic.value, error);
         });
-        self.state = BFPeripheralDelegateStateReady;
-    } else if (self.state == BFPeripheralDelegateStateWriteThenReadInWriting) {
-        self.state = BFPeripheralDelegateStateWriteThenReadInReading;
+        self.state = BFPeripheralStateReady;
+    } else if (self.state == BFPeripheralStateWriteThenReadInWriting) {
+        self.state = BFPeripheralStateWriteThenReadInReading;
     } else {
         NSAssert(NO, @"didWriteValueForCharacteristic: Illegal state: %@", @(self.state));
     }
@@ -231,7 +231,7 @@
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
              error:(NSError *)error
 {
-    if (self.state == BFPeripheralDelegateStateRead) {
+    if (self.state == BFPeripheralStateRead) {
         // not from expected characteristic
         if (![characteristic.UUID.UUIDString.uppercaseString isEqualToString:self.currentReadCharacteristicUUIDString]) {
             return;
@@ -239,8 +239,8 @@
         dispatch_async(self.completionQueue, ^{
             executeBlockIfExistsThenSetNil(self.readHandler, characteristic.value, error);
         });
-        self.state = BFPeripheralDelegateStateReady;
-    } else if (self.state == BFPeripheralDelegateStateWriteWithNotify) {
+        self.state = BFPeripheralStateReady;
+    } else if (self.state == BFPeripheralStateWriteWithNotify) {
         // not from expected characteristic
         if (![characteristic.UUID.UUIDString.uppercaseString isEqualToString:self.currentNotifyCharacteristicUUIDString]) {
             return;
@@ -248,8 +248,8 @@
         dispatch_async(self.completionQueue, ^{
             executeBlockIfExistsThenSetNil(self.writeWithNotifyHandler, characteristic.value, error);
         });
-        self.state = BFPeripheralDelegateStateReady;
-    } else if (self.state == BFPeripheralDelegateStateWriteThenReadInReading) {
+        self.state = BFPeripheralStateReady;
+    } else if (self.state == BFPeripheralStateWriteThenReadInReading) {
         // not from expected characteristic
         if (![characteristic.UUID.UUIDString.uppercaseString isEqualToString:self.currentReadCharacteristicUUIDString]) {
             return;
@@ -257,7 +257,7 @@
         dispatch_async(self.completionQueue, ^{
             executeBlockIfExistsThenSetNil(self.writeThenReadHandler, characteristic.value, error);
         });
-        self.state = BFPeripheralDelegateStateReady;
+        self.state = BFPeripheralStateReady;
     } else {
         NSAssert(NO, @"didUpdateValueForCharacteristic: Illegal state: %@", @(self.state));
     }
@@ -289,7 +289,7 @@
         [peripheral discoverCharacteristics:nil forService:service];
     }
     
-    self.state = BFPeripheralDelegateStateDiscoveringCharacteristics;
+    self.state = BFPeripheralStateDiscoveringCharacteristics;
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray<CBService *> *)invalidatedServices
@@ -335,7 +335,7 @@
     }];
     
     if (finishDiscoveringAllServices) {
-        self.state = BFPeripheralDelegateStateReady;
+        self.state = BFPeripheralStateReady;
         dispatch_async(self.completionQueue, ^{
             executeBlockIfExistsThenSetNil(self.didDiscoverServicesAndCharacteriscitcsHandler, error);
         });

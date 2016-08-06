@@ -119,7 +119,7 @@
                      readCharacteristicUUIDString:readCharacteristicUUIDString];
     
     CBCharacteristicWriteType writeType = [self getCharacteristicWriteType:writeCharacteristic];
-    bfPeripheralDelegate.state = BFPeripheralDelegateStateWriteThenReadInWriting;
+    bfPeripheralDelegate.state = BFPeripheralStateWriteThenReadInWriting;
     [self writeValue:data forCharacteristic:writeCharacteristic type:writeType];
 }
 
@@ -156,7 +156,7 @@
     BFPeripheralDelegate *bfPeripheralDelegate = [self getBlueFoundationPeripheralDelegate];
     NSAssert(bfPeripheralDelegate, @"The delegate of this peripheral is not managed by BlueFoundation.");
 
-    bfPeripheralDelegate.state = BFPeripheralDelegateStateDiscoveringServices;
+    bfPeripheralDelegate.state = BFPeripheralStateDiscoveringServices;
     bfPeripheralDelegate.didDiscoverServicesAndCharacteriscitcsHandler = handler;
     
     [self discoverServices:serviceUUIDs];

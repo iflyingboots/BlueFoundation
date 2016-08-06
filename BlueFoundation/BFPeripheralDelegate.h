@@ -13,18 +13,54 @@
 
 @class BFPeripheralManager;
 
-typedef NS_ENUM(uint8_t, BFPeripheralDelegateState) {
-    BFPeripheralDelegateStateIdle = 0,
-    BFPeripheralDelegateStateConnected,
-    BFPeripheralDelegateStateDiscoveringServices,
-    BFPeripheralDelegateStateDiscoveringCharacteristics,
-    BFPeripheralDelegateStateReady,
-    BFPeripheralDelegateStateWriteWithNotify,
-    BFPeripheralDelegateStateWriteWithoutNotify,
-    BFPeripheralDelegateStateWriteThenRead,
-    BFPeripheralDelegateStateWriteThenReadInWriting,     // sub state of WriteThenRead
-    BFPeripheralDelegateStateWriteThenReadInReading,     // sub state of WriteThenRead
-    BFPeripheralDelegateStateRead,
+/**
+ *  Peripheral's state
+ */
+typedef NS_ENUM(uint8_t, BFPeripheralState) {
+    /**
+     *  Default state, peripheral is unavailable.
+     */
+    BFPeripheralStateIdle = 0,
+    /**
+     *  Peripheral is connected.
+     */
+    BFPeripheralStateConnected,
+    /**
+     *  Peripheral is discovering services.
+     */
+    BFPeripheralStateDiscoveringServices,
+    /**
+     *  Peripheral is discovering characteristics.
+     */
+    BFPeripheralStateDiscoveringCharacteristics,
+    /**
+     *  Peripheral acquires services and characteristics, ready for operations.
+     */
+    BFPeripheralStateReady,
+    /**
+     *  Peripheral is writing with notify.
+     */
+    BFPeripheralStateWriteWithNotify,
+    /**
+     *  Peripheral is writing without notify.
+     */
+    BFPeripheralStateWriteWithoutNotify,
+    /**
+     *  Peripheral is writing and then read.
+     */
+    BFPeripheralStateWriteThenRead,
+    /**
+     *  Peripheral is writing and then read, in writing phase.
+     */
+    BFPeripheralStateWriteThenReadInWriting,
+    /**
+     *  Peripheral is writing and then read, in reading phase.
+     */
+    BFPeripheralStateWriteThenReadInReading,
+    /**
+     *  Peripheral is reading.
+     */
+    BFPeripheralStateRead,
 };
 
 NS_ASSUME_NONNULL_BEGIN
@@ -34,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) BFPeripheralManager *manager;
 @property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, CBCharacteristic *> *mutableCharacteristics;
 
-@property (nonatomic, assign) BFPeripheralDelegateState state;
+@property (nonatomic, assign) BFPeripheralState state;
 @property (nonatomic, strong, nullable) dispatch_queue_t completionQueue;
 
 // callbacks
