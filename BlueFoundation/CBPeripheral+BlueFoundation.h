@@ -89,6 +89,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)bf_readValueForCharacteristicUUIDString:(NSString *)characteristicUUIDString completion:(BFPeripheralReadHandler)completion;
 
+/**
+ *  Observe notification value from characteristic.
+ *
+ *  @param characteristicUUIDString The characteristic UUID string for notification, case insensitive.
+ *  @param handler                  A block object will be called after completion.
+ *  @discussion If you need to observe/subsribe notification from BLE device, you could use this method. 
+ *              Note: this method will be repeated receiving notifications.
+ */
+- (void)bf_observeNotifyValueForCharacteristicUUIDString:(NSString *)characteristicUUIDString completion:(BFPeripheralNotifyHandler)handler;
+
 @end
 
 NS_ASSUME_NONNULL_END

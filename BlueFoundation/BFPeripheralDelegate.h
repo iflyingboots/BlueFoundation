@@ -61,6 +61,10 @@ typedef NS_ENUM(uint8_t, BFPeripheralState) {
      *  Peripheral is reading.
      */
     BFPeripheralStateRead,
+    /**
+     *  Peripheral is notifying.
+     */
+    BFPeripheralStateNotify,
 };
 
 NS_ASSUME_NONNULL_BEGIN
@@ -81,6 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) BFPeripheralWriteWithoutNotifyHandler writeWithoutNotifyHandler;
 @property (nonatomic, copy, nullable) BFPeripheralWriteThenReadHandler writeThenReadHandler;
 @property (nonatomic, copy, nullable) BFPeripheralReadHandler readHandler;
+@property (nonatomic, copy, nullable) BFPeripheralNotifyHandler notifyHandler;
 
 - (void)setWriteWithNotifyHandler:(BFPeripheralWriteWithNotifyHandler _Nullable)writeWithNotifyHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString notifyCharacteristicUUIDString:(NSString * _Nonnull)notifyCharacteristicUUIDString;
 
@@ -89,6 +94,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setWriteThenReadHandler:(BFPeripheralWriteThenReadHandler _Nullable)writeThenReadHandler writeCharacteristicUUIDString:(NSString * _Nonnull)writeCharacteristicUUIDString readCharacteristicUUIDString:(NSString * _Nonnull)readCharacteristicUUIDString;
 
 - (void)setReadHandler:(BFPeripheralReadHandler _Nullable)readHandler readCharacteristicUUIDString:(NSString * _Nonnull)readCharacteristicUUIDString;
+
+- (void)setNotifyHandler:(BFPeripheralNotifyHandler _Nullable)notifyHandler notifyCharacteristicUUIDString:(NSString * _Nonnull)notifyCharacteristicUUIDString;
 
 @end
 

@@ -17,6 +17,7 @@ typedef void (^BFPeripheralWriteWithNotifyHandler)(NSData * _Nullable response, 
 typedef void (^BFPeripheralWriteWithoutNotifyHandler)(NSError * _Nullable error);
 typedef void (^BFPeripheralWriteThenReadHandler)(NSData * _Nullable response, NSError * _Nullable error);
 typedef void (^BFPeripheralReadHandler)(NSData * _Nullable response, NSError * _Nullable error);
+typedef void (^BFPeripheralNotifyHandler)(NSData * _Nullable response, NSError * _Nullable error);
 
 NS_ASSUME_NONNULL_END
 

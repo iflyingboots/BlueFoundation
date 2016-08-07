@@ -70,6 +70,15 @@
     self.state = BFPeripheralStateRead;
 }
 
+- (void)setNotifyHandler:(BFPeripheralNotifyHandler _Nullable)notifyHandler notifyCharacteristicUUIDString:(NSString * _Nonnull)notifyCharacteristicUUIDString
+{
+    self.notifyHandler = notifyHandler;
+    self.currentWriteCharacteristicUUIDString = nil;
+    self.currentReadCharacteristicUUIDString = nil;
+    self.currentNotifyCharacteristicUUIDString = notifyCharacteristicUUIDString.uppercaseString;
+    self.state = BFPeripheralStateNotify;
+}
+
 #pragma mark - Setters
 
 - (void)setState:(BFPeripheralState)state
@@ -181,6 +190,18 @@
             _state = state;
             break;
         }
+        case BFPeripheralStateNotify: {
+            // executing other operations?
+            if ([self checkIsExecuting]) {
+                dispatch_async(self.completionQueue, ^{
+                    executeBlockIfExistsThenSetNil(self.notifyHandler,
+                                                   nil, [BFError errorWithCode:BFErrorCodePeripheralBusy]);
+                });
+                break;
+            }
+            _state = state;
+            break;
+        }
     }
 }
 
@@ -201,6 +222,7 @@
         case BFPeripheralStateWriteThenReadInWriting:
         case BFPeripheralStateWriteThenReadInReading:
         case BFPeripheralStateRead:
+        case BFPeripheralStateNotify:
             return YES;
     }
 }
@@ -256,6 +278,17 @@
         }
         dispatch_async(self.completionQueue, ^{
             executeBlockIfExistsThenSetNil(self.writeThenReadHandler, characteristic.value, error);
+        });
+        self.state = BFPeripheralStateReady;
+    } else if (self.state == BFPeripheralStateNotify) {
+        // not from expected characteristic
+        if (![characteristic.UUID.UUIDString.uppercaseString isEqualToString:self.currentNotifyCharacteristicUUIDString]) {
+            return;
+        }
+        dispatch_async(self.completionQueue, ^{
+            if (self.notifyHandler) {
+                self.notifyHandler(characteristic.value, error);
+            }
         });
         self.state = BFPeripheralStateReady;
     } else {
